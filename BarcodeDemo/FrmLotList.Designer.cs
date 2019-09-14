@@ -62,6 +62,7 @@
             this.ExpectedDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.StatusName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.AssignEmpNm = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.LstQrCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -71,7 +72,6 @@
             this.btnViewList = new DevExpress.XtraBars.BarButtonItem();
             this.btnDel = new DevExpress.XtraBars.BarButtonItem();
             this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.LstQrCode = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -256,6 +256,7 @@
             this.gridView1.OptionsView.BestFitMode = DevExpress.XtraGrid.Views.Grid.GridBestFitMode.Full;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.gridView1_RowCellClick);
+            this.gridView1.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView1_RowCellStyle);
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // QRCodePackage_ID
@@ -364,6 +365,14 @@
             this.AssignEmpNm.Visible = true;
             this.AssignEmpNm.VisibleIndex = 8;
             // 
+            // LstQrCode
+            // 
+            this.LstQrCode.Caption = "Danh sách Serial";
+            this.LstQrCode.FieldName = "LstQrCode";
+            this.LstQrCode.Name = "LstQrCode";
+            this.LstQrCode.Visible = true;
+            this.LstQrCode.VisibleIndex = 11;
+            // 
             // barManager1
             // 
             this.barManager1.Controller = this.barAndDockingController1;
@@ -442,14 +451,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btnDel)});
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
-            // 
-            // LstQrCode
-            // 
-            this.LstQrCode.Caption = "Danh sách Serial";
-            this.LstQrCode.FieldName = "LstQrCode";
-            this.LstQrCode.Name = "LstQrCode";
-            this.LstQrCode.Visible = true;
-            this.LstQrCode.VisibleIndex = 11;
             // 
             // FrmLotList
             // 

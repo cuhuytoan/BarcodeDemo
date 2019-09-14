@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition1 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
@@ -171,7 +170,7 @@
             this.tileViewColumn36 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn40 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
             this.btnCreateLot = new DevExpress.XtraBars.BarButtonItem();
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonAddLot = new DevExpress.XtraBars.BarButtonItem();
@@ -241,7 +240,7 @@
             this.lblFinish = new System.Windows.Forms.Label();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -253,11 +252,11 @@
             this.btnDown = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelCode = new DevExpress.XtraBars.BarButtonItem();
             this.btnSycn = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.popupMenu2 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.popupMenu3 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.popupMenu4 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.popupMenu5 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu2 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu3 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu4 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu5 = new DevExpress.XtraBars.PopupMenu();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl2)).BeginInit();

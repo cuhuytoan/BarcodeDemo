@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmScanBarcodeList));
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition1 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
@@ -41,7 +40,6 @@
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition7 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition8 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition9 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition10 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement1 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement2 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement3 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
@@ -60,8 +58,6 @@
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement16 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement17 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement18 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement19 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement20 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             this.tileViewColumn11 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn12 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn13 = new DevExpress.XtraGrid.Columns.TileViewColumn();
@@ -73,6 +69,7 @@
             this.tileViewColumn29 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn42 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btn = new DevExpress.XtraBars.BarButtonItem();
@@ -97,16 +94,17 @@
             this.SerialNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.QRCode_ID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.CreateDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.btnPDel = new DevExpress.XtraBars.BarButtonItem();
             this.btnEditSerial = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.SerialNumberTextExpected = new DevExpress.XtraGrid.Columns.TileViewColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileView3)).BeginInit();
@@ -117,7 +115,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             this.SuspendLayout();
             // 
             // tileViewColumn11
@@ -215,6 +212,12 @@
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Size = new System.Drawing.Size(865, 32);
             // 
+            // barAndDockingController1
+            // 
+            this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
+            this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
+            // 
             // btnNew
             // 
             this.btnNew.Caption = "Làm mới";
@@ -298,7 +301,8 @@
             this.tileViewColumn27,
             this.tileViewColumn28,
             this.tileViewColumn29,
-            this.tileViewColumn42});
+            this.tileViewColumn42,
+            this.SerialNumberTextExpected});
             this.tileView3.GridControl = this.gridControl2;
             this.tileView3.Name = "tileView3";
             this.tileView3.OptionsTiles.ColumnCount = 1;
@@ -325,7 +329,6 @@
             this.tileView3.TileRows.Add(tableRowDefinition7);
             this.tileView3.TileRows.Add(tableRowDefinition8);
             this.tileView3.TileRows.Add(tableRowDefinition9);
-            this.tileView3.TileRows.Add(tableRowDefinition10);
             tileViewItemElement1.Appearance.Normal.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             tileViewItemElement1.Appearance.Normal.Options.UseFont = true;
             tileViewItemElement1.Column = this.tileViewColumn11;
@@ -372,82 +375,70 @@
             tileViewItemElement8.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement8.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
             tileViewItemElement8.RowIndex = 4;
-            tileViewItemElement8.Text = "Từ Serial";
+            tileViewItemElement8.Text = "Serial";
             tileViewItemElement8.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
+            tileViewItemElement9.Column = this.tileViewColumn14;
+            tileViewItemElement9.ColumnIndex = 1;
             tileViewItemElement9.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement9.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement9.RowIndex = 5;
-            tileViewItemElement9.Text = "Đến Serial";
+            tileViewItemElement9.RowIndex = 3;
+            tileViewItemElement9.Text = "tileViewColumn14";
             tileViewItemElement9.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement10.Column = this.tileViewColumn14;
+            tileViewItemElement10.Column = this.tileViewColumn1;
             tileViewItemElement10.ColumnIndex = 1;
             tileViewItemElement10.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement10.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement10.RowIndex = 3;
-            tileViewItemElement10.Text = "tileViewColumn14";
+            tileViewItemElement10.RowIndex = 5;
+            tileViewItemElement10.Text = "tileViewColumn1";
             tileViewItemElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement11.Column = this.tileViewColumn1;
+            tileViewItemElement11.Column = this.tileViewColumn27;
             tileViewItemElement11.ColumnIndex = 1;
             tileViewItemElement11.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement11.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
             tileViewItemElement11.RowIndex = 6;
-            tileViewItemElement11.Text = "tileViewColumn1";
+            tileViewItemElement11.Text = "tileViewColumn27";
             tileViewItemElement11.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement12.Column = this.tileViewColumn25;
-            tileViewItemElement12.ColumnIndex = 1;
             tileViewItemElement12.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement12.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement12.RowIndex = 4;
-            tileViewItemElement12.Text = "tileViewColumn25";
+            tileViewItemElement12.RowIndex = 5;
+            tileViewItemElement12.Text = "Số lô mã";
             tileViewItemElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement13.Column = this.tileViewColumn26;
-            tileViewItemElement13.ColumnIndex = 1;
             tileViewItemElement13.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement13.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement13.RowIndex = 5;
-            tileViewItemElement13.Text = "tileViewColumn26";
+            tileViewItemElement13.RowIndex = 6;
+            tileViewItemElement13.Text = "Bao bì";
             tileViewItemElement13.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement14.Column = this.tileViewColumn27;
+            tileViewItemElement14.Column = this.tileViewColumn29;
             tileViewItemElement14.ColumnIndex = 1;
             tileViewItemElement14.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement14.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
             tileViewItemElement14.RowIndex = 7;
-            tileViewItemElement14.Text = "tileViewColumn27";
+            tileViewItemElement14.Text = "tileViewColumn29";
             tileViewItemElement14.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
             tileViewItemElement15.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement15.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement15.RowIndex = 6;
-            tileViewItemElement15.Text = "Số lô mã";
+            tileViewItemElement15.RowIndex = 7;
+            tileViewItemElement15.Text = "Công nhân";
             tileViewItemElement15.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
             tileViewItemElement16.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement16.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement16.RowIndex = 7;
-            tileViewItemElement16.Text = "Bao bì";
+            tileViewItemElement16.RowIndex = 8;
+            tileViewItemElement16.Text = "Tổng số Tem";
             tileViewItemElement16.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement17.Column = this.tileViewColumn29;
+            tileViewItemElement17.Column = this.tileViewColumn42;
             tileViewItemElement17.ColumnIndex = 1;
             tileViewItemElement17.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement17.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
             tileViewItemElement17.RowIndex = 8;
-            tileViewItemElement17.Text = "tileViewColumn29";
+            tileViewItemElement17.Text = "tileViewColumn42";
             tileViewItemElement17.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
+            tileViewItemElement18.Column = this.SerialNumberTextExpected;
+            tileViewItemElement18.ColumnIndex = 1;
             tileViewItemElement18.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
             tileViewItemElement18.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement18.RowIndex = 8;
-            tileViewItemElement18.Text = "Công nhân";
+            tileViewItemElement18.RowIndex = 4;
+            tileViewItemElement18.Text = "SerialNumberTextExpected";
             tileViewItemElement18.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement19.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement19.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement19.RowIndex = 9;
-            tileViewItemElement19.Text = "Tổng số Tem";
-            tileViewItemElement19.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
-            tileViewItemElement20.Column = this.tileViewColumn42;
-            tileViewItemElement20.ColumnIndex = 1;
-            tileViewItemElement20.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileViewItemElement20.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            tileViewItemElement20.RowIndex = 9;
-            tileViewItemElement20.Text = "tileViewColumn42";
-            tileViewItemElement20.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft;
             this.tileView3.TileTemplate.Add(tileViewItemElement1);
             this.tileView3.TileTemplate.Add(tileViewItemElement2);
             this.tileView3.TileTemplate.Add(tileViewItemElement3);
@@ -466,8 +457,6 @@
             this.tileView3.TileTemplate.Add(tileViewItemElement16);
             this.tileView3.TileTemplate.Add(tileViewItemElement17);
             this.tileView3.TileTemplate.Add(tileViewItemElement18);
-            this.tileView3.TileTemplate.Add(tileViewItemElement19);
-            this.tileView3.TileTemplate.Add(tileViewItemElement20);
             // 
             // tileViewColumn15
             // 
@@ -674,11 +663,13 @@
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
             // 
-            // barAndDockingController1
+            // SerialNumberTextExpected
             // 
-            this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
-            this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
+            this.SerialNumberTextExpected.Caption = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.FieldName = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.Name = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.Visible = true;
+            this.SerialNumberTextExpected.VisibleIndex = 17;
             // 
             // FrmScanBarcodeList
             // 
@@ -699,6 +690,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmScanBarcodeList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileView3)).EndInit();
@@ -709,7 +701,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -761,5 +752,6 @@
         private DevExpress.XtraGrid.Columns.TileViewColumn tileViewColumn42;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
         private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
+        private DevExpress.XtraGrid.Columns.TileViewColumn SerialNumberTextExpected;
     }
 }

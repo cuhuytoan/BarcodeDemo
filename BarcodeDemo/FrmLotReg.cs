@@ -32,6 +32,7 @@ namespace BarcodeDemo
             LoadCombo();
             if (_PakageID > 0)
             {
+                
                 Inquiry(_PakageID);
             }
         }
@@ -130,7 +131,7 @@ namespace BarcodeDemo
         }
         private void Inquiry(int Pakage_ID)
         {
-            var query = from t1 in db.QRCodePackages
+            var query = (from t1 in db.QRCodePackages
                         join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                         let AssignEmpNm = t2.FullName
                         where t1.QRCodePackage_ID == Pakage_ID
@@ -145,24 +146,38 @@ namespace BarcodeDemo
                             t1.ManufactureDate,
                             t1.ProductLabel_ID,
                             t1.SerialNumberStartExpected,
-                            t1.SerialNumberEndExpected,
+                            t1.SerialNumberTextExpected,
+                            t1.PalletNum,
+                            t1.QRCodeNumber,
                             t1.ExpectedDate,
                             AssignEmpNm
 
-                        };
+                        }).FirstOrDefault();
+            if (query != null)
+            {
+                if (query.ProductLabel_ID != null)
+                {
+                    var ProductLb = ApiHelper.getComboProductLabel((int)query.Product_ID)
+                        .Where(p => p.ProductLabel_ID == query.ProductLabel_ID.ToString())
+                        .Select(i => new { i.ProductLabel_ID, i.Name }).ToList();
+                    cboProductLabel.DataSource = ProductLb;
+                    cboProductLabel.ValueMember = "ProductLabel_ID";
+                    cboProductLabel.DisplayMember = "Name";
+                }
 
-
-            //gridControl1.DataSource = query.ToList().OrderByDescending(i => i.QRCodePackage_ID);
-            txtLot.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "QRCodePackage_ID"));
-            cboProductNm.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "ProductName"));
-            txtShiftNo.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "ManufactureShift"));
-            cboPatchNo.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "Batch_ID"));
-            dtDateManu.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "ManufactureDate"));
-            //txtSerialFr.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "SerialNumberStartExpected"));
-            //txtSerialTo.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "SerialNumberEndExpected"));
-            //dtExpectedDate.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "ExpectedDate"));
-            cboProductLabel.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "ProductLabel_ID"));
-            cboEmp.DataBindings.Add(new Binding("Text", query.ToList().FirstOrDefault(), "AssignEmpNm"));
+                //gridControl1.DataSource = query.OrderByDescending(i => i.QRCodePackage_ID);
+                txtLot.DataBindings.Add(new Binding("Text", query, "QRCodePackage_ID"));
+                cboProductNm.DataBindings.Add(new Binding("Text", query, "ProductName"));
+                txtShiftNo.DataBindings.Add(new Binding("Text", query, "ManufactureShift"));
+                cboPatchNo.DataBindings.Add(new Binding("Text", query, "Batch_ID"));
+                dtDateManu.DataBindings.Add(new Binding("Text", query, "ManufactureDate"));
+                //txtSerialFr.DataBindings.Add(new Binding("Text", query, "SerialNumberStartExpected"));
+                txtTotalTem.DataBindings.Add(new Binding("Text", query, "QRCodeNumber"));
+                txtPallet.DataBindings.Add(new Binding("Text", query, "PalletNum"));
+                txtSerial.DataBindings.Add(new Binding("Text", query, "SerialNumberTextExpected"));
+                dtExpectedDate.DataBindings.Add(new Binding("Text", query, "ExpectedDate"));
+                cboEmp.DataBindings.Add(new Binding("Text", query, "AssignEmpNm"));
+            }
         }
 
         
@@ -186,6 +201,7 @@ namespace BarcodeDemo
 
         private void btnSaveM_Click(object sender, EventArgs e)
         {
+            splashScreenManager1.ShowWaitForm();
             int SerFr, SerTo;
             if (!checkBeforeSave()) return;
             //try
@@ -259,7 +275,8 @@ namespace BarcodeDemo
             catch (Exception ex)
             {
                 MessageBox.Show("Có lỗi trong quá trình lưu dữ liệu:" + ex, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }        
+            }
+            splashScreenManager1.CloseWaitForm();
         }
 
         private void btnNewM_Click(object sender, EventArgs e)

@@ -62,6 +62,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::BarcodeDemo.WaitForm1), true, true);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -398,6 +399,10 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Tên sản phẩm";
             // 
+            // splashScreenManager1
+            // 
+            this.splashScreenManager1.ClosingDelay = 500;
+            // 
             // FrmLotReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,5 +471,6 @@
         private DevExpress.XtraEditors.MemoEdit txtSerial;
         private DevExpress.XtraEditors.TextEdit txtPallet;
         private System.Windows.Forms.Label label11;
+        private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1;
     }
 }

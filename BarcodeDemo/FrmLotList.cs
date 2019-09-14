@@ -211,7 +211,7 @@ namespace BarcodeDemo
         {
             int LotSeq = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "QRCodePackage_ID").ToString());
 
-            QRCodePackage LotCode = db.QRCodePackages.Where(p => p.QRCodePackage_ID == LotSeq).SingleOrDefault();
+            QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
             db.QRCodePackages.Remove(LotCode);
             db.SaveChanges();
                     
@@ -226,6 +226,23 @@ namespace BarcodeDemo
 
         private void btnReport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+
+        }
+
+        private void gridView1_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            GridView view = sender as GridView;
+            string cellValue = gridView1.GetRowCellValue(e.RowHandle, "StatusName").ToString();
+            
+            if (cellValue != null && cellValue.ToString() == "Đã đồng bộ")
+            {
+                e.Appearance.BackColor = Color.DarkCyan;
+            }
+            else
+            {
+                e.Appearance.BackColor = Color.Red;
+            }
+            
 
         }
     }

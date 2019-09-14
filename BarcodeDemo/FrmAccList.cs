@@ -100,6 +100,7 @@ namespace BarcodeDemo
         {
             FrmAccReg frm = new FrmAccReg();
             frm.ShowDialog();
+            Inquiry();
         }
 
         private void btnDel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
