@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="productionmanager_plcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="App_Role">
+          <Key>
+            <PropertyRef Name="App_Role_ID" />
+          </Key>
+          <Property Name="App_Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="App_User">
+          <Key>
+            <PropertyRef Name="App_User_ID" />
+          </Key>
+          <Property Name="App_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="ManageBy" Type="uniqueidentifier" />
+          <Property Name="ProductBrand_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="App_UserInRole">
+          <Key>
+            <PropertyRef Name="App_UserInRole_ID" />
+          </Key>
+          <Property Name="App_UserInRole_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="App_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="App_Role_ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QRCode">
+          <Key>
+            <PropertyRef Name="QRCode_ID" />
+          </Key>
+          <Property Name="QRCode_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="QRCodePackage_ID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="uniqueidentifier" />
+          <Property Name="PhyCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsOutRange" Type="bit" />
+        </EntityType>
+        <EntityType Name="QRCodePackage">
+          <Key>
+            <PropertyRef Name="QRCodePackage_ID" />
+          </Key>
+          <Property Name="QRCodePackage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QRCodePackageType_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="ProductBrand_ID" Type="int" />
+          <Property Name="Factory_ID" Type="int" />
+          <Property Name="Batch_ID" Type="int" />
+          <Property Name="ProductLabel_ID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProfileQRCode" Type="nvarchar(max)" />
+          <Property Name="SoundEnable" Type="bit" />
+          <Property Name="SMS" Type="bit" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="QRCodeStatus_ID" Type="int" />
+          <Property Name="QRCodeProductStatus_ID" Type="int" />
+          <Property Name="ViewCount" Type="int" />
+          <Property Name="SellCount" Type="int" />
+          <Property Name="QRCodeNumber" Type="int" />
+          <Property Name="QRCodeUsed" Type="int" />
+          <Property Name="QRCodeCancel" Type="int" />
+          <Property Name="QRCodeAvailable" Type="int" />
+          <Property Name="SerialNumberStart" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumberEnd" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumberText" Type="nvarchar(max)" />
+          <Property Name="SerialNumberCancelText" Type="nvarchar(max)" />
+          <Property Name="ManageBy" Type="uniqueidentifier" />
+          <Property Name="CreateBy" Type="uniqueidentifier" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="LastEditBy" Type="uniqueidentifier" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="AgencyAssign" Type="uniqueidentifier" />
+          <Property Name="ManufactureShift" Type="nvarchar" MaxLength="500" />
+          <Property Name="ManufactureDate" Type="datetime" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="WarrantySerial" Type="nvarchar" MaxLength="200" />
+          <Property Name="WarrantyMonth" Type="int" />
+          <Property Name="WarrantyStartDate" Type="datetime" />
+          <Property Name="WarrantyEndDate" Type="datetime" />
+          <Property Name="UsedName" Type="nvarchar" MaxLength="500" />
+          <Property Name="UsedAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="UsedPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActiveDate" Type="datetime" />
+          <Property Name="PendingActive" Type="bit" />
+          <Property Name="PendingActiveDate" Type="datetime" />
+          <Property Name="ProduceInfoStaff" Type="nvarchar(max)" />
+          <Property Name="ProduceInfo" Type="nvarchar(max)" />
+          <Property Name="ProduceInfoDisplay" Type="bit" />
+          <Property Name="ProduceInfoEditDate" Type="datetime" />
+          <Property Name="QualityInfo" Type="nvarchar(max)" />
+          <Property Name="QualityInfoDisplay" Type="bit" />
+          <Property Name="QualityInfoEditDate" Type="datetime" />
+          <Property Name="DeliveryInfo" Type="nvarchar(max)" />
+          <Property Name="DeliveryInfoEditDate" Type="datetime" />
+          <Property Name="StoreInfo" Type="nvarchar(max)" />
+          <Property Name="StoreInfoDisplay" Type="bit" />
+          <Property Name="StoreInfoEditDate" Type="datetime" />
+          <Property Name="Warehouse_ID" Type="int" />
+          <Property Name="CustomerInfo" Type="nvarchar(max)" />
+          <Property Name="CheckApproveBy" Type="uniqueidentifier" />
+          <Property Name="CheckApproveDate" Type="datetime" />
+          <Property Name="AdminApproveBy" Type="uniqueidentifier" />
+          <Property Name="AdminApproveDate" Type="datetime" />
+          <Property Name="QRQueue" Type="int" />
+          <Property Name="ExpectedDate" Type="datetime" />
+          <Property Name="AssignEmp" Type="uniqueidentifier" />
+          <Property Name="SerialNumberStartExpected" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumberEndExpected" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumberTextExpected" Type="ntext" />
+          <Property Name="PalletNum" Type="int" />
+        </EntityType>
+        <EntityType Name="QRCodeProductStatus">
+          <Key>
+            <PropertyRef Name="QRCodeProductStatus_ID" />
+          </Key>
+          <Property Name="QRCodeProductStatus_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Function Name="QRCodePackage_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+          <Parameter Name="Product_ID" Type="int" Mode="In" />
+          <Parameter Name="ProductBrand_ID" Type="int" Mode="In" />
+          <Parameter Name="Factory_ID" Type="int" Mode="In" />
+          <Parameter Name="QRCodeProductStatus_ID" Type="int" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreateBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ManageBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="CurrentPage" Type="int" Mode="In" />
+          <Parameter Name="ItemCount" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="productionmanager_plcModelStoreContainer">
+          <EntitySet Name="App_Role" EntityType="Self.App_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="App_User" EntityType="Self.App_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="App_UserInRole" EntityType="Self.App_UserInRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QRCode" EntityType="Self.QRCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QRCodePackage" EntityType="Self.QRCodePackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QRCodeProductStatus" EntityType="Self.QRCodeProductStatus" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="productionmanager_plcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="App_Role">
+          <Key>
+            <PropertyRef Name="App_Role_ID" />
+          </Key>
+          <Property Name="App_Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="App_User">
+          <Key>
+            <PropertyRef Name="App_User_ID" />
+          </Key>
+          <Property Name="App_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="ManageBy" Type="Guid" />
+          <Property Name="ProductBrand_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="App_UserInRole">
+          <Key>
+            <PropertyRef Name="App_UserInRole_ID" />
+          </Key>
+          <Property Name="App_UserInRole_ID" Type="Guid" Nullable="false" />
+          <Property Name="App_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="App_Role_ID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QRCode">
+          <Key>
+            <PropertyRef Name="QRCode_ID" />
+          </Key>
+          <Property Name="QRCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="QRCodePackage_ID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="Guid" />
+          <Property Name="PhyCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsOutRange" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="QRCodePackage">
+          <Key>
+            <PropertyRef Name="QRCodePackage_ID" />
+          </Key>
+          <Property Name="QRCodePackage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QRCodePackageType_ID" Type="Int32" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="ProductBrand_ID" Type="Int32" />
+          <Property Name="Factory_ID" Type="Int32" />
+          <Property Name="Batch_ID" Type="Int32" />
+          <Property Name="ProductLabel_ID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileQRCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SoundEnable" Type="Boolean" />
+          <Property Name="SMS" Type="Boolean" />
+          <Property Name="Prefix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="QRCodeStatus_ID" Type="Int32" />
+          <Property Name="QRCodeProductStatus_ID" Type="Int32" />
+          <Property Name="ViewCount" Type="Int32" />
+          <Property Name="SellCount" Type="Int32" />
+          <Property Name="QRCodeNumber" Type="Int32" />
+          <Property Name="QRCodeUsed" Type="Int32" />
+          <Property Name="QRCodeCancel" Type="Int32" />
+          <Property Name="QRCodeAvailable" Type="Int32" />
+          <Property Name="SerialNumberStart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumberEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumberText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumberCancelText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManageBy" Type="Guid" />
+          <Property Name="CreateBy" Type="Guid" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditBy" Type="Guid" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="AgencyAssign" Type="Guid" />
+          <Property Name="ManufactureShift" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ManufactureDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="WarrantySerial" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WarrantyMonth" Type="Int32" />
+          <Property Name="WarrantyStartDate" Type="DateTime" Precision="3" />
+          <Property Name="WarrantyEndDate" Type="DateTime" Precision="3" />
+          <Property Name="UsedName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UsedAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UsedPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingActive" Type="Boolean" />
+          <Property Name="PendingActiveDate" Type="DateTime" Precision="3" />
+          <Property Name="ProduceInfoStaff" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProduceInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProduceInfoDisplay" Type="Boolean" />
+          <Property Name="ProduceInfoEditDate" Type="DateTime" Precision="3" />
+          <Property Name="QualityInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QualityInfoDisplay" Type="Boolean" />
+          <Property Name="QualityInfoEditDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveryInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryInfoEditDate" Type="DateTime" Precision="3" />
+          <Property Name="StoreInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StoreInfoDisplay" Type="Boolean" />
+          <Property Name="StoreInfoEditDate" Type="DateTime" Precision="3" />
+          <Property Name="Warehouse_ID" Type="Int32" />
+          <Property Name="CustomerInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CheckApproveBy" Type="Guid" />
+          <Property Name="CheckApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AdminApproveBy" Type="Guid" />
+          <Property Name="AdminApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="QRQueue" Type="Int32" />
+          <Property Name="ExpectedDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignEmp" Type="Guid" />
+          <Property Name="SerialNumberStartExpected" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumberEndExpected" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumberTextExpected" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PalletNum" Type="Int32" />
+        </EntityType>
+        <EntityType Name="QRCodeProductStatu">
+          <Key>
+            <PropertyRef Name="QRCodeProductStatus_ID" />
+          </Key>
+          <Property Name="QRCodeProductStatus_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="productionmanager_plcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="App_Role" EntityType="Self.App_Role" />
+          <EntitySet Name="App_User" EntityType="Self.App_User" />
+          <EntitySet Name="App_UserInRole" EntityType="Self.App_UserInRole" />
+          <EntitySet Name="QRCodes" EntityType="Self.QRCode" />
+          <EntitySet Name="QRCodePackages" EntityType="Self.QRCodePackage" />
+          <EntitySet Name="QRCodeProductStatus" EntityType="Self.QRCodeProductStatu" />
+          <FunctionImport Name="QRCodePackage_Search">
+            <Parameter Name="Keyword" Mode="In" Type="String" />
+            <Parameter Name="Product_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ProductBrand_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Factory_ID" Mode="In" Type="Int32" />
+            <Parameter Name="QRCodeProductStatus_ID" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CreateBy" Mode="In" Type="Guid" />
+            <Parameter Name="ManageBy" Mode="In" Type="Guid" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="CurrentPage" Mode="In" Type="Int32" />
+            <Parameter Name="ItemCount" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="productionmanager_plcModelStoreContainer" CdmEntityContainer="productionmanager_plcEntities">
+          <EntitySetMapping Name="App_Role">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.App_Role">
+              <MappingFragment StoreEntitySet="App_Role">
+                <ScalarProperty Name="App_Role_ID" ColumnName="App_Role_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="App_User">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.App_User">
+              <MappingFragment StoreEntitySet="App_User">
+                <ScalarProperty Name="App_User_ID" ColumnName="App_User_ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="ManageBy" ColumnName="ManageBy" />
+                <ScalarProperty Name="ProductBrand_ID" ColumnName="ProductBrand_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="App_UserInRole">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.App_UserInRole">
+              <MappingFragment StoreEntitySet="App_UserInRole">
+                <ScalarProperty Name="App_UserInRole_ID" ColumnName="App_UserInRole_ID" />
+                <ScalarProperty Name="App_User_ID" ColumnName="App_User_ID" />
+                <ScalarProperty Name="App_Role_ID" ColumnName="App_Role_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QRCodes">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.QRCode">
+              <MappingFragment StoreEntitySet="QRCode">
+                <ScalarProperty Name="IsOutRange" ColumnName="IsOutRange" />
+                <ScalarProperty Name="PhyCode" ColumnName="PhyCode" />
+                <ScalarProperty Name="QRCode_ID" ColumnName="QRCode_ID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="QRCodePackage_ID" ColumnName="QRCodePackage_ID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QRCodePackages">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.QRCodePackage">
+              <MappingFragment StoreEntitySet="QRCodePackage">
+                <ScalarProperty Name="PalletNum" ColumnName="PalletNum" />
+                <ScalarProperty Name="QRCodePackage_ID" ColumnName="QRCodePackage_ID" />
+                <ScalarProperty Name="QRCodePackageType_ID" ColumnName="QRCodePackageType_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="ProductBrand_ID" ColumnName="ProductBrand_ID" />
+                <ScalarProperty Name="Factory_ID" ColumnName="Factory_ID" />
+                <ScalarProperty Name="Batch_ID" ColumnName="Batch_ID" />
+                <ScalarProperty Name="ProductLabel_ID" ColumnName="ProductLabel_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProfileQRCode" ColumnName="ProfileQRCode" />
+                <ScalarProperty Name="SoundEnable" ColumnName="SoundEnable" />
+                <ScalarProperty Name="SMS" ColumnName="SMS" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="QRCodeStatus_ID" ColumnName="QRCodeStatus_ID" />
+                <ScalarProperty Name="QRCodeProductStatus_ID" ColumnName="QRCodeProductStatus_ID" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="SellCount" ColumnName="SellCount" />
+                <ScalarProperty Name="QRCodeNumber" ColumnName="QRCodeNumber" />
+                <ScalarProperty Name="QRCodeUsed" ColumnName="QRCodeUsed" />
+                <ScalarProperty Name="QRCodeCancel" ColumnName="QRCodeCancel" />
+                <ScalarProperty Name="QRCodeAvailable" ColumnName="QRCodeAvailable" />
+                <ScalarProperty Name="SerialNumberStart" ColumnName="SerialNumberStart" />
+                <ScalarProperty Name="SerialNumberEnd" ColumnName="SerialNumberEnd" />
+                <ScalarProperty Name="SerialNumberText" ColumnName="SerialNumberText" />
+                <ScalarProperty Name="SerialNumberCancelText" ColumnName="SerialNumberCancelText" />
+                <ScalarProperty Name="ManageBy" ColumnName="ManageBy" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastEditBy" ColumnName="LastEditBy" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="AgencyAssign" ColumnName="AgencyAssign" />
+                <ScalarProperty Name="ManufactureShift" ColumnName="ManufactureShift" />
+                <ScalarProperty Name="ManufactureDate" ColumnName="ManufactureDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="WarrantySerial" ColumnName="WarrantySerial" />
+                <ScalarProperty Name="WarrantyMonth" ColumnName="WarrantyMonth" />
+                <ScalarProperty Name="WarrantyStartDate" ColumnName="WarrantyStartDate" />
+                <ScalarProperty Name="WarrantyEndDate" ColumnName="WarrantyEndDate" />
+                <ScalarProperty Name="UsedName" ColumnName="UsedName" />
+                <ScalarProperty Name="UsedAddress" ColumnName="UsedAddress" />
+                <ScalarProperty Name="UsedPhone" ColumnName="UsedPhone" />
+                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
+                <ScalarProperty Name="PendingActive" ColumnName="PendingActive" />
+                <ScalarProperty Name="PendingActiveDate" ColumnName="PendingActiveDate" />
+                <ScalarProperty Name="ProduceInfoStaff" ColumnName="ProduceInfoStaff" />
+                <ScalarProperty Name="ProduceInfo" ColumnName="ProduceInfo" />
+                <ScalarProperty Name="ProduceInfoDisplay" ColumnName="ProduceInfoDisplay" />
+                <ScalarProperty Name="ProduceInfoEditDate" ColumnName="ProduceInfoEditDate" />
+                <ScalarProperty Name="QualityInfo" ColumnName="QualityInfo" />
+                <ScalarProperty Name="QualityInfoDisplay" ColumnName="QualityInfoDisplay" />
+                <ScalarProperty Name="QualityInfoEditDate" ColumnName="QualityInfoEditDate" />
+                <ScalarProperty Name="DeliveryInfo" ColumnName="DeliveryInfo" />
+                <ScalarProperty Name="DeliveryInfoEditDate" ColumnName="DeliveryInfoEditDate" />
+                <ScalarProperty Name="StoreInfo" ColumnName="StoreInfo" />
+                <ScalarProperty Name="StoreInfoDisplay" ColumnName="StoreInfoDisplay" />
+                <ScalarProperty Name="StoreInfoEditDate" ColumnName="StoreInfoEditDate" />
+                <ScalarProperty Name="Warehouse_ID" ColumnName="Warehouse_ID" />
+                <ScalarProperty Name="CustomerInfo" ColumnName="CustomerInfo" />
+                <ScalarProperty Name="CheckApproveBy" ColumnName="CheckApproveBy" />
+                <ScalarProperty Name="CheckApproveDate" ColumnName="CheckApproveDate" />
+                <ScalarProperty Name="AdminApproveBy" ColumnName="AdminApproveBy" />
+                <ScalarProperty Name="AdminApproveDate" ColumnName="AdminApproveDate" />
+                <ScalarProperty Name="QRQueue" ColumnName="QRQueue" />
+                <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+                <ScalarProperty Name="AssignEmp" ColumnName="AssignEmp" />
+                <ScalarProperty Name="SerialNumberStartExpected" ColumnName="SerialNumberStartExpected" />
+                <ScalarProperty Name="SerialNumberEndExpected" ColumnName="SerialNumberEndExpected" />
+                <ScalarProperty Name="SerialNumberTextExpected" ColumnName="SerialNumberTextExpected" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QRCodeProductStatus">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.QRCodeProductStatu">
+              <MappingFragment StoreEntitySet="QRCodeProductStatus">
+                <ScalarProperty Name="QRCodeProductStatus_ID" ColumnName="QRCodeProductStatus_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="QRCodePackage_Search" FunctionName="productionmanager_plcModel.Store.QRCodePackage_Search" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
