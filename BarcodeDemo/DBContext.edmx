@@ -44,6 +44,7 @@
           <Property Name="CreateBy" Type="uniqueidentifier" />
           <Property Name="PhyCode" Type="nvarchar" MaxLength="200" />
           <Property Name="IsOutRange" Type="bit" />
+          <Property Name="QRStatus" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="QRCodePackage">
           <Key>
@@ -182,18 +183,6 @@
           <Property Name="App_User_ID" Type="Guid" Nullable="false" />
           <Property Name="App_Role_ID" Type="Guid" Nullable="false" />
         </EntityType>
-        <EntityType Name="QRCode">
-          <Key>
-            <PropertyRef Name="QRCode_ID" />
-          </Key>
-          <Property Name="QRCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="QRCodePackage_ID" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="Guid" />
-          <Property Name="PhyCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsOutRange" Type="Boolean" />
-        </EntityType>
         <EntityType Name="QRCodePackage">
           <Key>
             <PropertyRef Name="QRCodePackage_ID" />
@@ -281,7 +270,6 @@
           <EntitySet Name="App_Role" EntityType="Self.App_Role" />
           <EntitySet Name="App_User" EntityType="Self.App_User" />
           <EntitySet Name="App_UserInRole" EntityType="Self.App_UserInRole" />
-          <EntitySet Name="QRCodes" EntityType="Self.QRCode" />
           <EntitySet Name="QRCodePackages" EntityType="Self.QRCodePackage" />
           <EntitySet Name="QRCodeProductStatus" EntityType="Self.QRCodeProductStatu" />
           <FunctionImport Name="QRCodePackage_Search">
@@ -298,7 +286,21 @@
             <Parameter Name="CurrentPage" Mode="In" Type="Int32" />
             <Parameter Name="ItemCount" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="QRCodes" EntityType="productionmanager_plcModel.QRCode" />
         </EntityContainer>
+        <EntityType Name="QRCode">
+          <Key>
+            <PropertyRef Name="QRCode_ID" />
+          </Key>
+          <Property Name="QRCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="QRCodePackage_ID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="Guid" />
+          <Property Name="PhyCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsOutRange" Type="Boolean" />
+          <Property Name="QRStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -333,19 +335,6 @@
                 <ScalarProperty Name="App_UserInRole_ID" ColumnName="App_UserInRole_ID" />
                 <ScalarProperty Name="App_User_ID" ColumnName="App_User_ID" />
                 <ScalarProperty Name="App_Role_ID" ColumnName="App_Role_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QRCodes">
-            <EntityTypeMapping TypeName="productionmanager_plcModel.QRCode">
-              <MappingFragment StoreEntitySet="QRCode">
-                <ScalarProperty Name="IsOutRange" ColumnName="IsOutRange" />
-                <ScalarProperty Name="PhyCode" ColumnName="PhyCode" />
-                <ScalarProperty Name="QRCode_ID" ColumnName="QRCode_ID" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="QRCodePackage_ID" ColumnName="QRCodePackage_ID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,6 +424,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="QRCodePackage_Search" FunctionName="productionmanager_plcModel.Store.QRCodePackage_Search" />
+          <EntitySetMapping Name="QRCodes">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.QRCode">
+              <MappingFragment StoreEntitySet="QRCode">
+                <ScalarProperty Name="QRStatus" ColumnName="QRStatus" />
+                <ScalarProperty Name="IsOutRange" ColumnName="IsOutRange" />
+                <ScalarProperty Name="PhyCode" ColumnName="PhyCode" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="QRCodePackage_ID" ColumnName="QRCodePackage_ID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="QRCode_ID" ColumnName="QRCode_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

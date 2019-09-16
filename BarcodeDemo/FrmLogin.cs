@@ -62,8 +62,7 @@ namespace BarcodeDemo
             }
             else
             {
-                var queryLoginID = db.App_User.Where(
-                    i => i.UserName == txtUser.Text.Trim() && i.Password == txtPwd.Text.Trim()).FirstOrDefault();
+                var queryLoginID = db.App_User.FirstOrDefault(i => i.UserName == txtUser.Text.Trim() && i.Password == txtPwd.Text.Trim());
                 if (queryLoginID == null)
                 {
                     MessageBox.Show("Đăng nhập thất bại, Vui lòng kiểm tra lại", "Thông báo", MessageBoxButtons.OK,

@@ -32,33 +32,29 @@ namespace BarcodeDemo
             LoadCombo();
             if (_PakageID > 0)
             {
-                
+
                 Inquiry(_PakageID);
             }
         }
-        
+
         private void Save()
         {
             //Select Max Number Order 
-            db= new productionmanager_plcEntities();
+            db = new productionmanager_plcEntities();
             int? MaxQueue = db.QRCodePackages.Max(i => i.QRQueue) == null ? 0 : db.QRCodePackages.Max(i => i.QRQueue);
             var AssignE = Guid.Parse(cboEmp.SelectedValue.ToString());
             var countStatusID = db.QRCodePackages.Count(i => i.QRCodeProductStatus_ID == 2 && i.AssignEmp == AssignE);
             int values = 1;
-            //Check chưa tồn tại lô mã kích hoạt thì kích hoạt luôn
-            //if (countStatusID == 0)
-            //{
-            //    values = 2;
-            //}
-
             db.QRCodePackages.Add(new QRCodePackage()
             {
                 Product_ID = ProductID,
                 ManufactureShift = txtShiftNo.Text,
+                QRCodePackageType_ID = 1,
+                Factory_ID = 2,
                 Batch_ID = String.IsNullOrEmpty(cboPatchNo.Text) ? 0 : Convert.ToInt32(cboPatchNo.Text),
                 ManufactureDate = Convert.ToDateTime(dtDateManu.Text),
                 //Item = txtClassTem.Text, ITem class
-                ProductLabel_ID =  cboProductLabel.SelectedValue != null ? Convert.ToInt32(cboProductLabel.SelectedValue.ToString()) : (int?) null,
+                ProductLabel_ID = cboProductLabel.SelectedValue != null ? Convert.ToInt32(cboProductLabel.SelectedValue.ToString()) : (int?)null,
                 Name = cboProductLabel.Text,
                 QRCodeProductStatus_ID = values,
                 ProductBrand_ID = 95, // Default value
@@ -66,9 +62,9 @@ namespace BarcodeDemo
                 //SerialNumberStartExpected = txtSerialFr.Text,
                 //SerialNumberEndExpected = txtSerialTo.Text,
                 //ExpectedDate = Convert.ToDateTime(dtExpectedDate.Text),
-                QRCodeNumber = String.IsNullOrEmpty(txtTotalTem.Text)?0: Convert.ToInt32(txtTotalTem.Text),
+                QRCodeNumber = String.IsNullOrEmpty(txtTotalTem.Text) ? 0 : Convert.ToInt32(txtTotalTem.Text),
                 SerialNumberTextExpected = txtSerial.Text,
-                PalletNum = String.IsNullOrEmpty(txtTotalTem.Text) ? 0: Convert.ToInt32(txtPallet.Text),
+                PalletNum = String.IsNullOrEmpty(txtTotalTem.Text) ? 0 : Convert.ToInt32(txtPallet.Text),
                 QRQueue = MaxQueue + 1,
                 AssignEmp = Guid.Parse(cboEmp.SelectedValue.ToString()),
                 ExpectedDate = Convert.ToDateTime(dtExpectedDate.Text),
@@ -77,7 +73,7 @@ namespace BarcodeDemo
                 CreateDate = DateTime.Now,
                 LastEditBy = ApiHelper.UserInfo.LoginID,
                 LastEditDate = DateTime.Now
-                
+
             });
             db.SaveChanges();
         }
@@ -92,13 +88,13 @@ namespace BarcodeDemo
             //txtSerialTo.Text = "";
             cboEmp.Text = "";
             _PakageID = 0;
-           
+
         }
         private void Delete()
         {
             int LotSeq = _PakageID;
             QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
-            db.QRCodePackages.Remove(LotCode);
+            if (LotCode != null) db.QRCodePackages.Remove(LotCode);
             db.SaveChanges();
         }
         private void Update()
@@ -111,7 +107,7 @@ namespace BarcodeDemo
                 LotCode.Product_ID = ProductID;
                 LotCode.ManufactureShift = txtShiftNo.Text;
                 LotCode.Batch_ID = String.IsNullOrEmpty(cboPatchNo.Text)
-                    ? (int?) null
+                    ? (int?)null
                     : Convert.ToInt32(cboPatchNo.Text);
                 LotCode.ManufactureDate = Convert.ToDateTime(dtDateManu.Text);
                 //LotCode.SerialNumberStartExpected = txtSerialFr.Text;
@@ -132,27 +128,27 @@ namespace BarcodeDemo
         private void Inquiry(int Pakage_ID)
         {
             var query = (from t1 in db.QRCodePackages
-                        join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                        let AssignEmpNm = t2.FullName
-                        where t1.QRCodePackage_ID == Pakage_ID
-                        select new
-                        {
-                            t1.QRCodePackage_ID,
-                            t1.Product_ID,
-                            t1.ProductBrand_ID,
-                            t1.ProductName,
-                            t1.ManufactureShift,
-                            t1.Batch_ID,
-                            t1.ManufactureDate,
-                            t1.ProductLabel_ID,
-                            t1.SerialNumberStartExpected,
-                            t1.SerialNumberTextExpected,
-                            t1.PalletNum,
-                            t1.QRCodeNumber,
-                            t1.ExpectedDate,
-                            AssignEmpNm
+                         join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
+                         let AssignEmpNm = t2.FullName
+                         where t1.QRCodePackage_ID == Pakage_ID
+                         select new
+                         {
+                             t1.QRCodePackage_ID,
+                             t1.Product_ID,
+                             t1.ProductBrand_ID,
+                             t1.ProductName,
+                             t1.ManufactureShift,
+                             t1.Batch_ID,
+                             t1.ManufactureDate,
+                             t1.ProductLabel_ID,
+                             t1.SerialNumberStartExpected,
+                             t1.SerialNumberTextExpected,
+                             t1.PalletNum,
+                             t1.QRCodeNumber,
+                             t1.ExpectedDate,
+                             AssignEmpNm
 
-                        }).FirstOrDefault();
+                         }).FirstOrDefault();
             if (query != null)
             {
                 if (query.ProductLabel_ID != null)
@@ -180,16 +176,16 @@ namespace BarcodeDemo
             }
         }
 
-        
-        
+
+
         private void LoadCombo()
         {
             // Load combo product
 
-            cboProductNm.Properties.DataSource = getComboProduct().Select(i => new { i.Product_ID, i.ProductName }); 
+            cboProductNm.Properties.DataSource = getComboProduct().Select(i => new { i.Product_ID, i.ProductName });
             cboProductNm.Properties.ValueMember = "Product_ID";
             cboProductNm.Properties.DisplayMember = "ProductName";
-            
+
 
             //Load Emp
             cboEmp.DataSource = db.App_User.Select(i => new { i.App_User_ID, i.FullName }).ToList();
@@ -204,35 +200,14 @@ namespace BarcodeDemo
             splashScreenManager1.ShowWaitForm();
             int SerFr, SerTo;
             if (!checkBeforeSave()) return;
-            //try
-            //{
-            //     SerFr = Convert.ToInt32(txtSerialFr.Text.Trim().Remove(0, 1));
-            //     SerTo = Convert.ToInt32(txtSerialTo.Text.Trim().Remove(0, 1));
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Có lỗi trong quá trình nhập serial", "Thông báo", MessageBoxButtons.OK);
-            //    return;
-            //}
-
-            //if (!CheckExistSerialClient(SerFr,SerTo))
-            //{
-            //    System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
-            //    player.Play();
-            //    MessageBox.Show("Lỗi : đã tồn tại khoảng serial bị trùng, Vui lòng kiểm tra lại", "Thông báo",
-            //        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
 
             string result = "";
             result = ApiHelper.CheckExistSerial(txtSerial.Text);
-            List<QRCodeDuplicateOutput> lst  = new List<QRCodeDuplicateOutput>();
+            List<QRCodeDuplicateOutput> lst = new List<QRCodeDuplicateOutput>();
             if (result != null)
             {
                 try
                 {
-                    //lst = ApiHelper.ParseJsonObject<QRCodeDuplicateOutput>(result);
-
                     if (!result.Contains("\"ResultCode\":\"0\""))
                     {
                         System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
@@ -240,17 +215,6 @@ namespace BarcodeDemo
                         MessageBox.Show(lst[0].Message, "Thông báo");
                         return;
                     }
-
-                    //if (lst.Any())
-                    //{
-                    //    if (lst[0].ResultCode.Trim() != "0")
-                    //    {
-                    //        System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
-                    //        player.Play();
-                    //        MessageBox.Show(lst[0].Message, "Thông báo");
-                    //        return;
-                    //    }
-                    //}
                 }
                 catch (Exception ex)
                 {
@@ -269,7 +233,7 @@ namespace BarcodeDemo
                     Save();
                     _PakageID = db.QRCodePackages.OrderByDescending(i => i.QRCodePackage_ID).FirstOrDefault().QRCodePackage_ID;
                     txtLot.Text = _PakageID.ToString();
-                }                
+                }
                 MessageBox.Show("Lưu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -283,14 +247,14 @@ namespace BarcodeDemo
         {
             New();
         }
-       
+
         private bool checkBeforeSave()
         {
             if (String.IsNullOrEmpty(cboProductNm.Text))
             {
-                MessageBox.Show("Vui lòng nhập dữ liệu tên sản phẩm", "Thông báo",MessageBoxButtons.OK);                
+                MessageBox.Show("Vui lòng nhập dữ liệu tên sản phẩm", "Thông báo", MessageBoxButtons.OK);
                 cboProductNm.Focus();
-                return  false;
+                return false;
             }
             if (String.IsNullOrEmpty(dtDateManu.Text))
             {
@@ -298,11 +262,11 @@ namespace BarcodeDemo
                 dtDateManu.Focus();
                 return false;
             }
-            if (String.IsNullOrEmpty(txtSerial.Text) )
+            if (String.IsNullOrEmpty(txtSerial.Text))
             {
                 MessageBox.Show("Vui lòng nhập dữ liệu serial", "Thông báo", MessageBoxButtons.OK);
                 txtSerial.Focus();
-                return  false;
+                return false;
             }
             if (String.IsNullOrEmpty(txtTotalTem.Text))
             {
@@ -326,7 +290,7 @@ namespace BarcodeDemo
             string jsonValues = ApiHelper.GetApi(url);
             if (jsonValues != null)
             {
-               lst =  ApiHelper.ParseJsonObject<ProductInfoOutput>(jsonValues);
+                lst = ApiHelper.ParseJsonObject<ProductInfoOutput>(jsonValues);
             }
             return lst;
         }
@@ -337,12 +301,12 @@ namespace BarcodeDemo
             EmpID = editor.GetColumnValue("AssignEmp").ToString();
         }
 
-        
+
 
         private void cboProductNm_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-      
+
+
         }
 
         private void cboProductNm_EditValueChanged_1(object sender, EventArgs e)
@@ -352,21 +316,19 @@ namespace BarcodeDemo
             if (ProductID != 0)
             {
                 cboProductLabel.DataSource =
-                    ApiHelper.getComboProductLabel(ProductID).Select(i => new {i.ProductLabel_ID, i.Name}).ToList();
+                    ApiHelper.getComboProductLabel(ProductID).Select(i => new { i.ProductLabel_ID, i.Name }).ToList();
                 cboProductLabel.ValueMember = "ProductLabel_ID";
                 cboProductLabel.DisplayMember = "Name";
 
 
                 //Get Batch ID cboPatchNo
-                cboPatchNo.DataSource = getComboBatch(ProductID).Select(i => new {i.Batch_ID, i.Name}).ToList();
+                cboPatchNo.DataSource = getComboBatch(ProductID).Select(i => new { i.Batch_ID, i.Name }).ToList();
                 cboPatchNo.ValueMember = "Batch_ID";
                 cboPatchNo.DisplayMember = "Name";
             }
-
-            
         }
 
-        
+
 
         private List<BatchInfoOutput> getComboBatch(int ProdID)
         {
@@ -380,44 +342,44 @@ namespace BarcodeDemo
             return lst;
         }
 
-        private bool CheckExistSerialClient(int SerialFr,int SerialTo)
+        private bool CheckExistSerialClient(int SerialFr, int SerialTo)
         {
             using (var db = new productionmanager_plcEntities())
             {
                 var query = (from p in db.QRCodePackages
-                    select new
-                    {
-                        p.SerialNumberStartExpected,
-                        p.SerialNumberEndExpected
-                    }).ToList();
+                             select new
+                             {
+                                 p.SerialNumberStartExpected,
+                                 p.SerialNumberEndExpected
+                             }).ToList();
                 var qrFr = (from p in query.AsEnumerable()
-                    where
-                        (SerialFr >= Convert.ToInt32(p.SerialNumberStartExpected.Remove(0, 1))  &&
-                         SerialFr <= Convert.ToInt32(p.SerialNumberEndExpected.Remove(0, 1)))
-                    select new
-                    {
-                        p.SerialNumberStartExpected,
-                        p.SerialNumberEndExpected
-                    }).ToList();
-                if (qrFr.Count > 0)
-               {
-                   return false;
-               }
-                var qrTo = (from p in query.AsEnumerable()
-                    where
-                        (SerialTo >= Convert.ToInt32(p.SerialNumberStartExpected.Remove(0, 1)) &&
-                         SerialTo <= Convert.ToInt32(p.SerialNumberEndExpected.Remove(0, 1)))
+                            where
+                                (SerialFr >= Convert.ToInt32(p.SerialNumberStartExpected.Remove(0, 1)) &&
+                                 SerialFr <= Convert.ToInt32(p.SerialNumberEndExpected.Remove(0, 1)))
                             select new
-                    {
-                        p.SerialNumberStartExpected,
-                        p.SerialNumberEndExpected
-                    }).ToList();
+                            {
+                                p.SerialNumberStartExpected,
+                                p.SerialNumberEndExpected
+                            }).ToList();
+                if (qrFr.Count > 0)
+                {
+                    return false;
+                }
+                var qrTo = (from p in query.AsEnumerable()
+                            where
+                                (SerialTo >= Convert.ToInt32(p.SerialNumberStartExpected.Remove(0, 1)) &&
+                                 SerialTo <= Convert.ToInt32(p.SerialNumberEndExpected.Remove(0, 1)))
+                            select new
+                            {
+                                p.SerialNumberStartExpected,
+                                p.SerialNumberEndExpected
+                            }).ToList();
                 if (qrTo.Count > 0)
-               {
-                   return false;
-               }
+                {
+                    return false;
+                }
 
-               return true;
+                return true;
             }
         }
 

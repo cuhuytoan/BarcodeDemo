@@ -21,5 +21,6 @@ namespace BarcodeDemo
         public Nullable<System.Guid> CreateBy { get; set; }
         public string PhyCode { get; set; }
         public Nullable<bool> IsOutRange { get; set; }
+        public string QRStatus { get; set; }
     }
 }

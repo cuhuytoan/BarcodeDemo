@@ -240,28 +240,6 @@ namespace BarcodeDemo
             }
             else
             {
-                //var query = (from t1 in db.QRCodePackages
-                //    join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                //    let EmpUserName = t2.FullName
-                //    let ProductLabelName = t1.Name
-                //    where t1.QRCodeProductStatus_ID == 3 && t1.AssignEmp == ApiHelper.UserInfo.LoginID
-                //    select new
-                //    {
-                //        t1.QRCodePackage_ID,
-                //        EmpUserName,
-                //        t1.Batch_ID,
-                //        t1.ProductLabel_ID,
-                //        t1.ProductName,
-                //        t1.SerialNumberStartExpected,
-                //        t1.SerialNumberEndExpected,
-                //        t1.ManufactureDate,
-                //        t1.ManufactureShift,
-                //        t1.QRQueue,
-                //        ProductLabelName
-                //    }).ToList().OrderBy(i => i.QRQueue);
-                //gridControl3.DataSource = query;
-
-
                 var query = (from t1 in db.QRCodePackages
                              join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                              let EmpUserName = t2.FullName
@@ -334,12 +312,12 @@ namespace BarcodeDemo
                 {
                     var PacNum = Pac.QRCodePackage_ID;
                     var totalNum = totalTemp.QRCodeNumber;
-                    var number = db.QRCodes.Where(p => p.QRCodePackage_ID == PacNum).Count();
+                    var number = db.QRCodes.Count(p => p.QRCodePackage_ID == PacNum);
                     //lblTemp.Text = "Số lượng tem đã hoàn thành là: " + number.ToString();//+ " / " + totalNum.ToString();
                 }
 
-                var waiting = db.QRCodePackages.Where(p => p.QRCodeProductStatus_ID == 1).Count();
-                var finish = db.QRCodePackages.Where(p => p.QRCodeProductStatus_ID == 3).Count();
+                var waiting = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 1);
+                var finish = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 3);
                 lblWaiting.Text = "Danh sách lô mã đang chờ : " + waiting.ToString();
                 lblFinish.Text = "Danh sách lô mã đã kích hoạt xong : " + finish.ToString();
             }
@@ -455,8 +433,8 @@ namespace BarcodeDemo
         private void Delete()
         {
             int LotSeq = Convert.ToInt32(SelectedPackage);
-            QRCodePackage LotCode = db.QRCodePackages.Where(p => p.QRCodePackage_ID == LotSeq).SingleOrDefault();
-            db.QRCodePackages.Remove(LotCode);
+            QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
+            if (LotCode != null) db.QRCodePackages.Remove(LotCode);
             db.SaveChanges();
         }
 
@@ -773,7 +751,7 @@ namespace BarcodeDemo
 
         private void DeleteQr()
         {
-            QRCode QrCodeID = db.QRCodes.Where(p => p.QRCode_ID == QRCodeID).SingleOrDefault();
+            QRCode QrCodeID = db.QRCodes.SingleOrDefault(p => p.QRCode_ID == QRCodeID);
 
             if (QrCodeID != null)
             {

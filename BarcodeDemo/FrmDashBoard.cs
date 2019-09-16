@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -104,7 +105,8 @@ namespace BarcodeDemo
                         t1.ExpectedDate,
                         t1.SerialNumberTextExpected,
                         t1.PalletNum
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }
+                    ).OrderBy(i => i.QRQueue).ToList();
                 
                 gridControl2.DataSource = query;
             }
@@ -273,28 +275,6 @@ namespace BarcodeDemo
             }
             else
             {
-                //var query = (from t1 in db.QRCodePackages
-                //    join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                //    let EmpUserName = t2.FullName
-                //    let ProductLabelName = t1.Name
-                //    where t1.QRCodeProductStatus_ID == 3 && t1.AssignEmp == ApiHelper.UserInfo.LoginID
-                //    select new
-                //    {
-                //        t1.QRCodePackage_ID,
-                //        EmpUserName,
-                //        t1.Batch_ID,
-                //        t1.ProductLabel_ID,
-                //        t1.ProductName,
-                //        t1.SerialNumberStartExpected,
-                //        t1.SerialNumberEndExpected,
-                //        t1.ManufactureDate,
-                //        t1.ManufactureShift,
-                //        t1.QRQueue,
-                //        ProductLabelName
-                //    }).ToList().OrderBy(i => i.QRQueue);
-                //gridControl3.DataSource = query;
-
-
                 var query = (from t1 in db.QRCodePackages
                              join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                              let EmpUserName = t2.FullName
@@ -358,13 +338,7 @@ namespace BarcodeDemo
         {
             using (var db = new productionmanager_plcEntities())
             {
-                int SelPack;
-                //if (ApiHelper.UserInfo.AccountType == "2")
-                //{
-                    //SelPack = Convert.ToInt32(SelectedPackage);
-                SelPack = CurrentPackageID;
-                //}
-               
+                var SelPack = CurrentPackageID;
                 var Pac = db.QRCodePackages.FirstOrDefault(p =>
                     p.QRCodeProductStatus_ID == 2 && p.QRCodePackage_ID == SelPack);
                 var totalTemp =
@@ -374,14 +348,14 @@ namespace BarcodeDemo
                 {
                     var PacNum = Pac.QRCodePackage_ID;
                     var totalPallet = totalTemp.PalletNum;
-                    var number = db.QRCodes.Where(p => p.QRCodePackage_ID == PacNum).Count();
+                    var number = db.QRCodes.Count(p => p.QRCodePackage_ID == PacNum);
                     lblTemp.Text =
                         "Số lượng tem đã hoàn thành là: " + number
                     + @" / Số lượng Pallet: " + number / totalPallet + @" / Số lượng dư: " + number % totalPallet;
                 }
 
-                var waiting = db.QRCodePackages.Where(p => p.QRCodeProductStatus_ID == 1).Count();
-                var finish = db.QRCodePackages.Where(p => p.QRCodeProductStatus_ID == 3).Count();
+                var waiting = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 1 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
+                var finish = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 3 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
                 lblWaiting.Text = "Danh sách lô mã đang chờ : " + waiting.ToString();
                 lblFinish.Text = "Danh sách lô mã đã kích hoạt xong : " + finish.ToString();
             }
@@ -404,6 +378,13 @@ namespace BarcodeDemo
 
             using (var db = new productionmanager_plcEntities())
             {
+                //Update status to finish
+                var qrPac = db.QRCodePackages.SingleOrDefault(p =>
+                    p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
+                if (qrPac !=null && qrPac.Name.Equals("Phuy"))
+                {
+                    txtPhuyNum.Enabled = true;
+                }
                 LoadWaiting();
                 LoadActive();
                 LoadFinish();
@@ -500,7 +481,7 @@ namespace BarcodeDemo
         private void Delete()
         {
             int LotSeq = Convert.ToInt32(SelectedPackage);
-            QRCodePackage LotCode = db.QRCodePackages.Where(p => p.QRCodePackage_ID == LotSeq).SingleOrDefault();
+            QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
             db.QRCodePackages.Remove(LotCode);
             db.SaveChanges();
         }
@@ -512,22 +493,36 @@ namespace BarcodeDemo
         private void Up()
         {
             int Pac = Convert.ToInt32(SelectedPackage);
-            QRCodePackage LotCode = db.QRCodePackages.Where(i => i.QRCodePackage_ID == Pac && i.QRCodeProductStatus_ID == 1).SingleOrDefault();
-            var QueueCurrent = LotCode.QRQueue;
-            QRCodePackage LotCodeUp = db.QRCodePackages.Where(i => i.QRQueue == (LotCode.QRQueue - 1) && i.QRCodeProductStatus_ID == 1).SingleOrDefault();
-            LotCode.QRQueue = LotCodeUp.QRQueue;
-            LotCodeUp.QRQueue = QueueCurrent;
+            QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(i => i.QRCodePackage_ID == Pac && i.QRCodeProductStatus_ID == 1);
+            if (LotCode != null)
+            {
+                var QueueCurrent = LotCode.QRQueue;
+                QRCodePackage LotCodeUp = db.QRCodePackages.SingleOrDefault(i => i.QRQueue == (LotCode.QRQueue - 1) && i.QRCodeProductStatus_ID == 1);
+                if (LotCodeUp != null)
+                {
+                    LotCode.QRQueue = LotCodeUp.QRQueue;
+                    LotCodeUp.QRQueue = QueueCurrent;
+                }
+            }
+
             db.SaveChanges();
 
         }
         private void Down()
         {
             int Pac = Convert.ToInt32(SelectedPackage);
-            QRCodePackage LotCode = db.QRCodePackages.Where(i => i.QRCodePackage_ID == Pac && i.QRCodeProductStatus_ID == 1).SingleOrDefault();
-            var QueueCurrent = LotCode.QRQueue;
-            QRCodePackage LotCodeDown = db.QRCodePackages.Where(i => i.QRQueue == (LotCode.QRQueue + 1) && i.QRCodeProductStatus_ID == 1).SingleOrDefault();
-            LotCode.QRQueue = LotCodeDown.QRQueue;
-            LotCodeDown.QRQueue = QueueCurrent;
+            QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(i => i.QRCodePackage_ID == Pac && i.QRCodeProductStatus_ID == 1);
+            if (LotCode != null)
+            {
+                var QueueCurrent = LotCode.QRQueue;
+                QRCodePackage LotCodeDown = db.QRCodePackages.SingleOrDefault(i => i.QRQueue == (LotCode.QRQueue + 1) && i.QRCodeProductStatus_ID == 1);
+                if (LotCodeDown != null)
+                {
+                    LotCode.QRQueue = LotCodeDown.QRQueue;
+                    LotCodeDown.QRQueue = QueueCurrent;
+                }
+            }
+
             db.SaveChanges();
         }
 
@@ -591,65 +586,34 @@ namespace BarcodeDemo
         {
             if (e.KeyCode == Keys.Enter)
             {
+                using (var db = new productionmanager_plcEntities())
+                {
+                    var ProdPackage = db.QRCodePackages.FirstOrDefault(p =>
+                        p.QRCodeProductStatus_ID == 2 & p.AssignEmp == ApiHelper.UserInfo.LoginID);
+                    if (ProdPackage == null)
+                    {
+                        MessageBox.Show("Không có lô nào đang thực hiện kích hoạt");
+                        return;
+                    }
+                }
                 if (String.IsNullOrEmpty(txtScan.Text)) return;
                 if (!CheckOutOfRange())
                 {
-                    //System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
-                    //player.Play();
-                    //var Confirm = MessageBox.Show("Barcode không nằm trong dải định sẵn, Bạn có muống lưu ?",
-                    //    "Xác nhân!!",
-                    //    MessageBoxButtons.YesNo);
-                    //if (Confirm == DialogResult.Yes)
-                    //{
-                        AutoSave(true);
-                        //lstQrCodes.Add(new QRCode()
-                        //{
-                        //    QRCodePackage_ID = CurrentPackageID,
-                        //    CreateBy = ApiHelper.UserInfo.LoginID,
-                        //    CreateDate = DateTime.Now,
-                        //    IsOutRange = true,
-                        //    PhyCode = "",
-                        //    SerialNumber = txtScan.Text
-                        //});
+                        AutoSave(true,"");
                         ScanFocus();
-                    //}
+                    
                 }
                 else if (!CheckExistsBarcode())
                 {
-
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
                     player.Play();
-                    var Confirm = MessageBox.Show("Barcode đã tồn tại bạn có muốn lưu thêm?",
-                                             "Xác nhân!!",
-                                             MessageBoxButtons.YesNo);
-                    if (Confirm == DialogResult.Yes)
-                    {
-                        AutoSave(false);
-                        //lstQrCodes.Add(new QRCode()
-                        //{
-                        //    QRCodePackage_ID = CurrentPackageID,
-                        //    CreateBy = ApiHelper.UserInfo.LoginID,
-                        //    CreateDate = DateTime.Now,
-                        //    IsOutRange = false,
-                        //    PhyCode = "",
-                        //    SerialNumber = txtScan.Text
-                        //});
-                        ScanFocus();
-                    }
+                    AutoSave(false,"Mã trùng lặp");
+                    ScanFocus();
                 }
                 
                 else
                 {
-                    AutoSave(false);
-                    //lstQrCodes.Add(new QRCode()
-                    //{
-                    //    QRCodePackage_ID = CurrentPackageID,
-                    //    CreateBy = ApiHelper.UserInfo.LoginID,
-                    //    CreateDate = DateTime.Now,
-                    //    IsOutRange = false,
-                    //    PhyCode = "",
-                    //    SerialNumber = txtScan.Text
-                    //});
+                    AutoSave(false,"");
                     ScanFocus();
                 }
 
@@ -665,7 +629,6 @@ namespace BarcodeDemo
         {
             txtScan.Text = "";
             txtScan.Focus();
-            //gridControl4.DataSource = lstQrCodes;
         }
         private bool CheckExistsBarcode()
         {
@@ -685,13 +648,11 @@ namespace BarcodeDemo
             return fl;
         }
         
-        private void AutoSave(bool isOutRange)
+        private void AutoSave(bool isOutRange, string QRStatus)
         {
             //Check count Number.
             using (var db = new productionmanager_plcEntities())
             {
-                //var QRNumber = db.QRCodePackages.Where(p => p.QRCodePackage_ID == CurrentPackageID).SingleOrDefault()
-                //    .QRCodeNumber;
                 var checkFirstSerial = db.QRCodes.Count(p => p.QRCodePackage_ID == CurrentPackageID);
                 if (checkFirstSerial == 0)
                 {
@@ -706,18 +667,11 @@ namespace BarcodeDemo
                         CreateDate = DateTime.Now,
                         CreateBy = ApiHelper.UserInfo.LoginID,
                         IsOutRange = isOutRange,
+                        QRStatus = QRStatus,
                         PhyCode = txtPhuyNum.Text
                     });
-                    //if (lstQrCodes == null)
-                    //{
-                    //    MessageBox.Show("Không thể hoàn thành lô mã khi dữ liệu tem trống", "Thông báo");
-                    //    return;
-                    //}
-                    //foreach (var p in lstQrCodes)
-                    //{
-                    //db.QRCodes.Add(p);
-                        db.SaveChanges();
-                    //}
+                    db.SaveChanges();
+                    
                     
                 }
                 catch (Exception ex)
@@ -887,24 +841,13 @@ namespace BarcodeDemo
         private void UpdateTus()
         {
             int SelPac = Convert.ToInt32(SelectedPackage);
-            var lst = db.QRCodePackages.Where(i => i.QRCodePackage_ID == SelPac).SingleOrDefault();
+            var lst = db.QRCodePackages.SingleOrDefault(i => i.QRCodePackage_ID == SelPac);
             lst.QRCodeProductStatus_ID = 4;
             db.SaveChanges();
         }
 
         private void tileView2_ItemCustomize(object sender, DevExpress.XtraGrid.Views.Tile.TileViewItemCustomizeEventArgs e)
         {
-
-            //int Pacx = Convert.ToInt32(tileView2.GetRowCellValue(e.RowHandle, "QRCodeProductStatus_ID"));
-            //if(Pacx == 4)
-            //{
-            //    this.tileView2.Appearance.ItemNormal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-
-            //}
-            //else
-            //{
-            //    e.Item.AppearanceItem.Normal.BackColor = Color.Lime;
-            //}
 
         }
 
@@ -930,8 +873,6 @@ namespace BarcodeDemo
                 if (Confirm == DialogResult.Yes)
                 {
                     //Khi nhân hoàn thành lô mã mới lưu dữ liệu
-                    //AutoSave();
-                    //Update Status = 3
                     UpdateStatus();
                     //Update status to active
                     QRCodePackage qrU = db.QRCodePackages.Where(i => i.QRCodeProductStatus_ID == 1 && i.AssignEmp == ApiHelper.UserInfo.LoginID).OrderBy(i => i.QRQueue).FirstOrDefault();
@@ -946,7 +887,6 @@ namespace BarcodeDemo
                                 p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID)
                             .QRCodePackage_ID;
                     }
-                    //lstQrCodes = new List<QRCode>();
                 }
             }
             catch (Exception ex)
@@ -978,13 +918,6 @@ namespace BarcodeDemo
         private void gridView4_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Right) return;
-            //var RowH = gridView1.FocusedRowHandle;
-            ////var focusRowView = (DataRowView)gridView1.GetFocusedRow();
-            ////if (focusRowView == null || focusRowView.IsNew) return;
-            //if (RowH >= 0)
-            //    popupMenu3.ShowPopup(barManager1, new Point(MousePosition.X, MousePosition.Y));
-            //else
-            //    popupMenu3.HidePopup();
             GridView view = sender as GridView;
             GridHitInfo hi = view.CalcHitInfo(e.Location);
             var RowH = hi.RowHandle;
@@ -999,7 +932,7 @@ namespace BarcodeDemo
 
         private void DeleteQr()
         {
-            QRCode QrCodeID = db.QRCodes.Where(p => p.QRCode_ID == QRCodeID).SingleOrDefault();
+            QRCode QrCodeID = db.QRCodes.SingleOrDefault(p => p.QRCode_ID == QRCodeID);
 
             if (QrCodeID != null)
             {
@@ -1018,6 +951,17 @@ namespace BarcodeDemo
         private void btnLogOut_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.Close();
+        }
+
+        private void gridView4_RowStyle(object sender, RowStyleEventArgs e)
+        {
+            GridView view = sender as GridView;
+            string cellValue = gridView1.GetRowCellValue(e.RowHandle, "QRStatus").ToString();
+
+            if (cellValue != null &&  !String.IsNullOrEmpty(cellValue))
+            {
+                e.Appearance.BackColor = Color.Red;
+            }
         }
     }
 }
