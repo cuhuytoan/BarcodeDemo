@@ -378,13 +378,7 @@ namespace BarcodeDemo
 
             using (var db = new productionmanager_plcEntities())
             {
-                //Update status to finish
-                var qrPac = db.QRCodePackages.SingleOrDefault(p =>
-                    p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
-                if (qrPac !=null && qrPac.Name.Equals("Phuy"))
-                {
-                    txtPhuyNum.Enabled = true;
-                }
+               
                 LoadWaiting();
                 LoadActive();
                 LoadFinish();
@@ -597,6 +591,7 @@ namespace BarcodeDemo
                     }
                 }
                 if (String.IsNullOrEmpty(txtScan.Text)) return;
+
                 if (!CheckOutOfRange())
                 {
                         AutoSave(true,"");
@@ -607,10 +602,9 @@ namespace BarcodeDemo
                 {
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer("Sound/FalseS.wav");
                     player.Play();
-                    AutoSave(false,"Mã trùng lặp");
+                    AutoSave(false,"");
                     ScanFocus();
                 }
-                
                 else
                 {
                     AutoSave(false,"");
@@ -653,6 +647,19 @@ namespace BarcodeDemo
             //Check count Number.
             using (var db = new productionmanager_plcEntities())
             {
+                //Check Phuy Type
+                var Items = db.QRCodePackages.FirstOrDefault(p => p.QRCodePackage_ID == CurrentPackageID);
+                if (Items != null && Items.Name.Contains("Phuy"))
+                {
+                    FrmPhuyNum frm = new FrmPhuyNum();
+                    frm.ShowDialog();
+                    txtPhuyNum.Text = frm.PhuyNum;
+                }
+
+                if (!CheckExistsBarcode())
+                {
+                    QRStatus = "Mã trùng lặp";
+                }
                 var checkFirstSerial = db.QRCodes.Count(p => p.QRCodePackage_ID == CurrentPackageID);
                 if (checkFirstSerial == 0)
                 {
@@ -956,9 +963,7 @@ namespace BarcodeDemo
         private void gridView4_RowStyle(object sender, RowStyleEventArgs e)
         {
             GridView view = sender as GridView;
-            string cellValue = gridView1.GetRowCellValue(e.RowHandle, "QRStatus").ToString();
-
-            if (cellValue != null &&  !String.IsNullOrEmpty(cellValue))
+            if (gridView4.GetRowCellValue(e.RowHandle, "QRStatus") != null)
             {
                 e.Appearance.BackColor = Color.Red;
             }

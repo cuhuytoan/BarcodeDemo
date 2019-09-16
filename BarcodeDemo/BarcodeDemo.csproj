@@ -189,6 +189,12 @@
     <Compile Include="FrmLotReg.Designer.cs">
       <DependentUpon>FrmLotReg.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPhuyNum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPhuyNum.Designer.cs">
+      <DependentUpon>FrmPhuyNum.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmScanBarcode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLotReg.resx">
       <DependentUpon>FrmLotReg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPhuyNum.resx">
+      <DependentUpon>FrmPhuyNum.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmScanBarcode.resx">
       <DependentUpon>FrmScanBarcode.cs</DependentUpon>

@@ -76,7 +76,7 @@ namespace BarcodeDemo
                         t1.ExpectedDate,
                         t1.SerialNumberTextExpected,
                         t1.PalletNum
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }).OrderBy(i => i.QRQueue).ToList();
 
                 gridControl2.DataSource = query;
             }
@@ -103,7 +103,7 @@ namespace BarcodeDemo
                                  t1.ExpectedDate,
                                  t1.SerialNumberTextExpected,
                                  t1.PalletNum
-                             }).ToList().OrderBy(i => i.QRQueue);
+                             }).OrderBy(i => i.QRQueue).ToList();
                 gridControl2.DataSource = query;
             }
         }
@@ -132,7 +132,7 @@ namespace BarcodeDemo
                         t1.ExpectedDate,
                         t1.SerialNumberTextExpected,
                         t1.PalletNum
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }).OrderBy(i => i.QRQueue).ToList();
                 gridControl1.DataSource = query;
 
                 var CurrPac = db.QRCodePackages.FirstOrDefault(p => p.QRCodeProductStatus_ID == 2);
@@ -165,7 +165,7 @@ namespace BarcodeDemo
                         t1.ExpectedDate,
                         t1.SerialNumberTextExpected,
                         t1.PalletNum
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }).OrderBy(i => i.QRQueue).ToList();
                 gridControl1.DataSource = query;
                 
                 var CurrPac = db.QRCodePackages.FirstOrDefault(p => p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
@@ -204,7 +204,7 @@ namespace BarcodeDemo
                         t1.QRCodeProductStatus_ID,
                         t1.SerialNumberTextExpected,
                         t1.PalletNum
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }).OrderBy(i => i.QRQueue).ToList();
 
                 var sumQuery = (from t1 in db.QRCodes
                     group t1 by (t1.QRCodePackage_ID)
@@ -234,7 +234,7 @@ namespace BarcodeDemo
                         t1.SerialNumberTextExpected,
                         t1.PalletNum,
                         IsCheck = (t1.QRCodeProductStatus_ID != 3)
-                    }).ToList().OrderBy(i => i.QRQueue);
+                    }).OrderBy(i => i.QRQueue).ToList();
                 gridControl3.DataSource = outQuery;
                 
             }
@@ -262,7 +262,7 @@ namespace BarcodeDemo
                                  t1.QRCodeProductStatus_ID,
                                  t1.SerialNumberTextExpected,
                                  t1.PalletNum
-                             }).ToList().OrderBy(i => i.QRQueue);
+                             }).OrderBy(i => i.QRQueue).ToList();
 
                 var sumQuery = (from t1 in db.QRCodes
                                 group t1 by (t1.QRCodePackage_ID)
@@ -293,7 +293,7 @@ namespace BarcodeDemo
                                     t1.PalletNum,
                                     IsCheck = (t1.QRCodeProductStatus_ID != 3)
 
-                                }).ToList().OrderBy(i => i.QRQueue);
+                                }).OrderBy(i => i.QRQueue).ToList();
                 gridControl3.DataSource = outQuery;
             }
 

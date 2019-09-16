@@ -205,6 +205,7 @@
             this.PhyCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.IsOutRange = new DevExpress.XtraGrid.Columns.GridColumn();
             this.QRCode_ID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.QRStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panel9 = new System.Windows.Forms.Panel();
             this.splitContainerControl3 = new DevExpress.XtraEditors.SplitContainerControl();
             this.txtScan = new DevExpress.XtraEditors.TextEdit();
@@ -258,7 +259,6 @@
             this.popupMenu3 = new DevExpress.XtraBars.PopupMenu(this.components);
             this.popupMenu4 = new DevExpress.XtraBars.PopupMenu(this.components);
             this.popupMenu5 = new DevExpress.XtraBars.PopupMenu(this.components);
-            this.QRStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl2)).BeginInit();
@@ -1176,6 +1176,15 @@
             this.QRCode_ID.FieldName = "QRCode_ID";
             this.QRCode_ID.Name = "QRCode_ID";
             // 
+            // QRStatus
+            // 
+            this.QRStatus.Caption = "Trạng thái";
+            this.QRStatus.FieldName = "QRStatus";
+            this.QRStatus.Name = "QRStatus";
+            this.QRStatus.OptionsColumn.ReadOnly = true;
+            this.QRStatus.Visible = true;
+            this.QRStatus.VisibleIndex = 4;
+            // 
             // panel9
             // 
             this.panel9.Controls.Add(this.splitContainerControl3);
@@ -1194,8 +1203,9 @@
             this.splitContainerControl3.Panel1.Text = "Panel1";
             this.splitContainerControl3.Panel2.Controls.Add(this.txtPhuyNum);
             this.splitContainerControl3.Panel2.Text = "Panel2";
+            this.splitContainerControl3.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Panel1;
             this.splitContainerControl3.Size = new System.Drawing.Size(422, 60);
-            this.splitContainerControl3.SplitterPosition = 360;
+            this.splitContainerControl3.SplitterPosition = 363;
             this.splitContainerControl3.TabIndex = 2;
             this.splitContainerControl3.Text = "splitContainerControl3";
             // 
@@ -1212,7 +1222,7 @@
             this.txtScan.Properties.Appearance.Options.UseTextOptions = true;
             this.txtScan.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.txtScan.Properties.MaxLength = 8;
-            this.txtScan.Size = new System.Drawing.Size(360, 54);
+            this.txtScan.Size = new System.Drawing.Size(422, 54);
             this.txtScan.TabIndex = 1;
             this.txtScan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtScan_KeyDown);
             // 
@@ -1230,8 +1240,9 @@
             this.txtPhuyNum.Properties.Appearance.Options.UseTextOptions = true;
             this.txtPhuyNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.txtPhuyNum.Properties.MaxLength = 8;
-            this.txtPhuyNum.Size = new System.Drawing.Size(50, 54);
+            this.txtPhuyNum.Size = new System.Drawing.Size(0, 54);
             this.txtPhuyNum.TabIndex = 2;
+            this.txtPhuyNum.Visible = false;
             // 
             // panel7
             // 
@@ -2038,15 +2049,6 @@
             // 
             this.popupMenu5.Manager = this.barManager1;
             this.popupMenu5.Name = "popupMenu5";
-            // 
-            // QRStatus
-            // 
-            this.QRStatus.Caption = "Trạng thái";
-            this.QRStatus.FieldName = "QRStatus";
-            this.QRStatus.Name = "QRStatus";
-            this.QRStatus.OptionsColumn.ReadOnly = true;
-            this.QRStatus.Visible = true;
-            this.QRStatus.VisibleIndex = 4;
             // 
             // FrmDashBoard
             // 
