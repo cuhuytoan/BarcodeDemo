@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmScanBarcodeList));
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition1 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
@@ -63,13 +64,14 @@
             this.tileViewColumn13 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn14 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn1 = new DevExpress.XtraGrid.Columns.TileViewColumn();
-            this.tileViewColumn25 = new DevExpress.XtraGrid.Columns.TileViewColumn();
-            this.tileViewColumn26 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn27 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn29 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.tileViewColumn42 = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.SerialNumberTextExpected = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.tileViewColumn25 = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.tileViewColumn26 = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btn = new DevExpress.XtraBars.BarButtonItem();
@@ -94,15 +96,14 @@
             this.SerialNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.QRCode_ID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.CreateDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.btnPDel = new DevExpress.XtraBars.BarButtonItem();
             this.btnEditSerial = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
-            this.SerialNumberTextExpected = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -157,22 +158,6 @@
             this.tileViewColumn1.Visible = true;
             this.tileViewColumn1.VisibleIndex = 0;
             // 
-            // tileViewColumn25
-            // 
-            this.tileViewColumn25.Caption = "SerialNumberStartExpected";
-            this.tileViewColumn25.FieldName = "SerialNumberStartExpected";
-            this.tileViewColumn25.Name = "tileViewColumn25";
-            this.tileViewColumn25.Visible = true;
-            this.tileViewColumn25.VisibleIndex = 11;
-            // 
-            // tileViewColumn26
-            // 
-            this.tileViewColumn26.Caption = "SerialNumberEndExpected";
-            this.tileViewColumn26.FieldName = "SerialNumberEndExpected";
-            this.tileViewColumn26.Name = "tileViewColumn26";
-            this.tileViewColumn26.Visible = true;
-            this.tileViewColumn26.VisibleIndex = 12;
-            // 
             // tileViewColumn27
             // 
             this.tileViewColumn27.Caption = "ProductLabelName";
@@ -197,6 +182,30 @@
             this.tileViewColumn42.Visible = true;
             this.tileViewColumn42.VisibleIndex = 16;
             // 
+            // SerialNumberTextExpected
+            // 
+            this.SerialNumberTextExpected.Caption = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.FieldName = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.Name = "SerialNumberTextExpected";
+            this.SerialNumberTextExpected.Visible = true;
+            this.SerialNumberTextExpected.VisibleIndex = 17;
+            // 
+            // tileViewColumn25
+            // 
+            this.tileViewColumn25.Caption = "SerialNumberStartExpected";
+            this.tileViewColumn25.FieldName = "SerialNumberStartExpected";
+            this.tileViewColumn25.Name = "tileViewColumn25";
+            this.tileViewColumn25.Visible = true;
+            this.tileViewColumn25.VisibleIndex = 11;
+            // 
+            // tileViewColumn26
+            // 
+            this.tileViewColumn26.Caption = "SerialNumberEndExpected";
+            this.tileViewColumn26.FieldName = "SerialNumberEndExpected";
+            this.tileViewColumn26.Name = "tileViewColumn26";
+            this.tileViewColumn26.Visible = true;
+            this.tileViewColumn26.VisibleIndex = 12;
+            // 
             // ribbonControl1
             // 
             this.ribbonControl1.Controller = this.barAndDockingController1;
@@ -216,6 +225,7 @@
             // 
             this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
+            this.barAndDockingController1.PropertiesBar.AllowLinkLighting = false;
             this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
             // 
             // btnNew
@@ -662,14 +672,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.btnEditSerial)});
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
-            // 
-            // SerialNumberTextExpected
-            // 
-            this.SerialNumberTextExpected.Caption = "SerialNumberTextExpected";
-            this.SerialNumberTextExpected.FieldName = "SerialNumberTextExpected";
-            this.SerialNumberTextExpected.Name = "SerialNumberTextExpected";
-            this.SerialNumberTextExpected.Visible = true;
-            this.SerialNumberTextExpected.VisibleIndex = 17;
             // 
             // FrmScanBarcodeList
             // 

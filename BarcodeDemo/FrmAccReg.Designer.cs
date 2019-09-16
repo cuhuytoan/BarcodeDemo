@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAccReg));
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnInquiry = new DevExpress.XtraBars.BarButtonItem();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -47,15 +48,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPwd = new DevExpress.XtraEditors.TextEdit();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFullName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRePwd.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPwd.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -72,6 +72,13 @@
             this.ribbonControl1.MaxItemId = 5;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Size = new System.Drawing.Size(492, 32);
+            // 
+            // barAndDockingController1
+            // 
+            this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
+            this.barAndDockingController1.PropertiesBar.AllowLinkLighting = false;
+            this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
             // 
             // btnNew
             // 
@@ -217,12 +224,6 @@
             this.txtPwd.Size = new System.Drawing.Size(309, 20);
             this.txtPwd.TabIndex = 3;
             // 
-            // barAndDockingController1
-            // 
-            this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
-            this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
-            // 
             // FrmAccReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,6 +240,7 @@
             this.Text = "Đăng ký tài khoản";
             this.Load += new System.EventHandler(this.FrmAccReg_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
@@ -246,7 +248,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRePwd.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPwd.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
