@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace BarcodeDemo
 {
@@ -33,16 +34,21 @@ namespace BarcodeDemo
                 Uri url = new Uri(strUrl);
                 try
                 {
-                    LoginID = Guid.Parse(ApiHelper.GetApi(url));
-                    if (LoginID != Guid.Empty)
+                    if (ApiHelper.GetApi(url) != "0" )
                     {
-                        ApiHelper.UserInfo.LoginID = LoginID;
-                        ApiHelper.UserInfo.AccountType = cboAccountType.SelectedValue.ToString();
-                        var frm = new FrmDashBoardAdmin();
-                        this.Hide();
-                        frm.ShowDialog();
-                        frm.WindowState = FormWindowState.Maximized;
-                        this.Show();
+                        var jsonResult = ApiHelper.GetApi(url);
+                        if (jsonResult != "0")
+                        {
+                            var lst = JsonConvert.DeserializeObject<UserLogin>(jsonResult);
+                            ApiHelper.UserInfo.LoginID = Guid.Parse(lst.UserId);
+                            ApiHelper.UserInfo.Factory_ID = Convert.ToInt32(lst.Factory_ID);
+                            ApiHelper.UserInfo.AccountType = cboAccountType.SelectedValue.ToString();
+                            var frm = new FrmDashBoardAdmin();
+                            this.Hide();
+                            frm.ShowDialog();
+                            frm.WindowState = FormWindowState.Maximized;
+                            this.Show();
+                        }
                     }
                     else
                     {

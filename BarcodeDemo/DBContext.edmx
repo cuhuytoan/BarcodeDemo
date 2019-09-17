@@ -24,6 +24,7 @@
           <Property Name="LastLoginDate" Type="datetime" />
           <Property Name="ManageBy" Type="uniqueidentifier" />
           <Property Name="ProductBrand_ID" Type="int" />
+          <Property Name="Factory_ID" Type="int" />
         </EntityType>
         <EntityType Name="App_UserInRole">
           <Key>
@@ -162,19 +163,6 @@
           <Property Name="App_Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="App_User">
-          <Key>
-            <PropertyRef Name="App_User_ID" />
-          </Key>
-          <Property Name="App_User_ID" Type="Guid" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
-          <Property Name="ManageBy" Type="Guid" />
-          <Property Name="ProductBrand_ID" Type="Int32" />
-        </EntityType>
         <EntityType Name="App_UserInRole">
           <Key>
             <PropertyRef Name="App_UserInRole_ID" />
@@ -268,7 +256,6 @@
         </EntityType>
         <EntityContainer Name="productionmanager_plcEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="App_Role" EntityType="Self.App_Role" />
-          <EntitySet Name="App_User" EntityType="Self.App_User" />
           <EntitySet Name="App_UserInRole" EntityType="Self.App_UserInRole" />
           <EntitySet Name="QRCodePackages" EntityType="Self.QRCodePackage" />
           <EntitySet Name="QRCodeProductStatus" EntityType="Self.QRCodeProductStatu" />
@@ -287,6 +274,7 @@
             <Parameter Name="ItemCount" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="QRCodes" EntityType="productionmanager_plcModel.QRCode" />
+          <EntitySet Name="App_User" EntityType="productionmanager_plcModel.App_User" />
         </EntityContainer>
         <EntityType Name="QRCode">
           <Key>
@@ -301,6 +289,20 @@
           <Property Name="IsOutRange" Type="Boolean" />
           <Property Name="QRStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="App_User">
+          <Key>
+            <PropertyRef Name="App_User_ID" />
+          </Key>
+          <Property Name="App_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="ManageBy" Type="Guid" />
+          <Property Name="ProductBrand_ID" Type="Int32" />
+          <Property Name="Factory_ID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -312,20 +314,6 @@
               <MappingFragment StoreEntitySet="App_Role">
                 <ScalarProperty Name="App_Role_ID" ColumnName="App_Role_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="App_User">
-            <EntityTypeMapping TypeName="productionmanager_plcModel.App_User">
-              <MappingFragment StoreEntitySet="App_User">
-                <ScalarProperty Name="App_User_ID" ColumnName="App_User_ID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="ManageBy" ColumnName="ManageBy" />
-                <ScalarProperty Name="ProductBrand_ID" ColumnName="ProductBrand_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,6 +423,21 @@
                 <ScalarProperty Name="QRCodePackage_ID" ColumnName="QRCodePackage_ID" />
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="QRCode_ID" ColumnName="QRCode_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="App_User">
+            <EntityTypeMapping TypeName="productionmanager_plcModel.App_User">
+              <MappingFragment StoreEntitySet="App_User">
+                <ScalarProperty Name="Factory_ID" ColumnName="Factory_ID" />
+                <ScalarProperty Name="ProductBrand_ID" ColumnName="ProductBrand_ID" />
+                <ScalarProperty Name="ManageBy" ColumnName="ManageBy" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="App_User_ID" ColumnName="App_User_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -28,11 +28,11 @@ namespace BarcodeDemo
         }
     
         public virtual DbSet<App_Role> App_Role { get; set; }
-        public virtual DbSet<App_User> App_User { get; set; }
         public virtual DbSet<App_UserInRole> App_UserInRole { get; set; }
         public virtual DbSet<QRCodePackage> QRCodePackages { get; set; }
         public virtual DbSet<QRCodeProductStatu> QRCodeProductStatus { get; set; }
         public virtual DbSet<QRCode> QRCodes { get; set; }
+        public virtual DbSet<App_User> App_User { get; set; }
     
         public virtual int QRCodePackage_Search(string keyword, Nullable<int> product_ID, Nullable<int> productBrand_ID, Nullable<int> factory_ID, Nullable<int> qRCodeProductStatus_ID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.Guid> createBy, Nullable<System.Guid> manageBy, Nullable<int> pageSize, Nullable<int> currentPage, ObjectParameter itemCount)
         {

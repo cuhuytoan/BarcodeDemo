@@ -109,6 +109,7 @@ namespace BarcodeDemo
             public static string AccountType { get; set; }
             public static string UserName { get; set; }
             public static string FullName { get; set; }
+            public static int Factory_ID { get; set; }
         }
 
         public static string CheckExistSerial(string SerialStart, string SerialEnd)

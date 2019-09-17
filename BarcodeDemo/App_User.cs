@@ -22,5 +22,6 @@ namespace BarcodeDemo
         public Nullable<System.DateTime> LastLoginDate { get; set; }
         public Nullable<System.Guid> ManageBy { get; set; }
         public Nullable<int> ProductBrand_ID { get; set; }
+        public Nullable<int> Factory_ID { get; set; }
     }
 }

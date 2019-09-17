@@ -38,6 +38,7 @@ namespace BarcodeDemo
                 FullName = txtFullName.Text,
                 CreateDate = DateTime.Now,
                 LastLoginDate = DateTime.Now,
+                Factory_ID = ApiHelper.UserInfo.Factory_ID,
                 ManageBy = ApiHelper.UserInfo.LoginID,
                 ProductBrand_ID = 95
             });

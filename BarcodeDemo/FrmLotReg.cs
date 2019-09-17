@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Data.Filtering.Helpers;
+
 namespace BarcodeDemo
 {
     public partial class FrmLotReg : DevExpress.XtraBars.Ribbon.RibbonForm
@@ -49,8 +51,8 @@ namespace BarcodeDemo
             {
                 Product_ID = ProductID,
                 ManufactureShift = txtShiftNo.Text,
-                QRCodePackageType_ID = 1,
-                Factory_ID = 2,
+                QRCodePackageType_ID = rdPublic.Checked ? 1 : 2,
+                Factory_ID = ApiHelper.UserInfo.Factory_ID,
                 Batch_ID = String.IsNullOrEmpty(cboPatchNo.Text) ? 0 : Convert.ToInt32(cboPatchNo.Text),
                 ManufactureDate = Convert.ToDateTime(dtDateManu.Text),
                 //Item = txtClassTem.Text, ITem class
@@ -110,6 +112,7 @@ namespace BarcodeDemo
                     ? (int?)null
                     : Convert.ToInt32(cboPatchNo.Text);
                 LotCode.ManufactureDate = Convert.ToDateTime(dtDateManu.Text);
+                LotCode.QRCodePackageType_ID = rdPublic.Checked ? 1 : 2;
                 //LotCode.SerialNumberStartExpected = txtSerialFr.Text;
                 //LotCode.SerialNumberEndExpected = txtSerialTo.Text;
                 LotCode.ProductName = cboProductNm.Text;
@@ -136,6 +139,8 @@ namespace BarcodeDemo
                              t1.QRCodePackage_ID,
                              t1.Product_ID,
                              t1.ProductBrand_ID,
+                             t1.QRCodePackageType_ID,
+                             t1.Factory_ID,
                              t1.ProductName,
                              t1.ManufactureShift,
                              t1.Batch_ID,
@@ -161,6 +166,16 @@ namespace BarcodeDemo
                     cboProductLabel.DisplayMember = "Name";
                 }
 
+                if (query.QRCodePackageType_ID == 1)
+                {
+                    rdPublic.Checked = true;
+                    rdPrivate.Checked = false;
+                }
+                else
+                {
+                    rdPrivate.Checked = true;
+                    rdPublic.Checked = false;
+                }
                 //gridControl1.DataSource = query.OrderByDescending(i => i.QRCodePackage_ID);
                 txtLot.DataBindings.Add(new Binding("Text", query, "QRCodePackage_ID"));
                 cboProductNm.DataBindings.Add(new Binding("Text", query, "ProductName"));

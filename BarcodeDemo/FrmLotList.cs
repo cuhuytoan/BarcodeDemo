@@ -51,11 +51,14 @@ namespace BarcodeDemo
                 var query = (from t1 in db.QRCodePackages
                     join t3 in db.QRCodeProductStatus on t1.QRCodeProductStatus_ID equals t3.QRCodeProductStatus_ID
                     join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
+                             
                     //join t4 in lst on t1.QRCodePackage_ID equals t4.QRCodePackage_ID
                     let StatusName = t3.Name
                     let AssignEmpNm = t2.FullName
                     let NameLot = t1.ProductName + "_" + t1.SerialNumberStartExpected + "_" + t1.SerialNumberEndExpected
                     let BName = t1.Name
+                             where t1.Factory_ID == ApiHelper.UserInfo.Factory_ID
+                             
                     select new
                     {
                         t1.QRCodePackage_ID,

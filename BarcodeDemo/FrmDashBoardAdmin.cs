@@ -59,7 +59,7 @@ namespace BarcodeDemo
                     join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                     let EmpUserName = t2.FullName
                     let ProductLabelName = t1.Name
-                    where t1.QRCodeProductStatus_ID == 1
+                    where t1.QRCodeProductStatus_ID == 1 && t1.Factory_ID == ApiHelper.UserInfo.Factory_ID
                     select new
                     {
                         t1.QRCodePackage_ID,
@@ -80,32 +80,7 @@ namespace BarcodeDemo
 
                 gridControl2.DataSource = query;
             }
-            else
-            {
-                var query = (from t1 in db.QRCodePackages
-                             join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                             let EmpUserName = t2.FullName
-                             let ProductLabelName = t1.Name
-                             where t1.QRCodeProductStatus_ID == 1 && t1.AssignEmp == ApiHelper.UserInfo.LoginID
-                             select new
-                             {
-                                 t1.QRCodePackage_ID,
-                                 EmpUserName,
-                                 t1.Batch_ID,
-                                 t1.ProductLabel_ID,
-                                 t1.ProductName,
-                                 t1.SerialNumberStartExpected,
-                                 t1.SerialNumberEndExpected,
-                                 t1.ManufactureDate,
-                                 t1.ManufactureShift,
-                                 t1.QRQueue,
-                                 ProductLabelName,
-                                 t1.ExpectedDate,
-                                 t1.SerialNumberTextExpected,
-                                 t1.PalletNum
-                             }).OrderBy(i => i.QRQueue).ToList();
-                gridControl2.DataSource = query;
-            }
+            
         }
         private void LoadActive()
         {
@@ -115,8 +90,9 @@ namespace BarcodeDemo
                     join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                     let EmpUserName = t2.FullName
                     let ProductLabelName = t1.Name
-                    where t1.QRCodeProductStatus_ID == 2
-                    select new
+                    where t1.QRCodeProductStatus_ID == 2 && t1.Factory_ID == ApiHelper.UserInfo.Factory_ID
+                                                         
+                             select new
                     {
                         t1.QRCodePackage_ID,
                         EmpUserName,
@@ -142,40 +118,7 @@ namespace BarcodeDemo
                 }
 
             }
-            else
-            {
-                var query = (from t1 in db.QRCodePackages
-                    join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                    let EmpUserName = t2.FullName
-                    let ProductLabelName = t1.Name
-                    where t1.QRCodeProductStatus_ID == 2 && t1.AssignEmp == ApiHelper.UserInfo.LoginID
-                    select new
-                    {
-                        t1.QRCodePackage_ID,
-                        EmpUserName,
-                        t1.Batch_ID,
-                        t1.ProductLabel_ID,
-                        t1.ProductName,
-                        t1.SerialNumberStartExpected,
-                        t1.SerialNumberEndExpected,
-                        t1.ManufactureDate,
-                        t1.ManufactureShift,
-                        t1.QRQueue,
-                        ProductLabelName,
-                        t1.ExpectedDate,
-                        t1.SerialNumberTextExpected,
-                        t1.PalletNum
-                    }).OrderBy(i => i.QRQueue).ToList();
-                gridControl1.DataSource = query;
-                
-                var CurrPac = db.QRCodePackages.FirstOrDefault(p => p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
-                if (CurrPac != null)
-                {
-                    CurrentPackageID = CurrPac.QRCodePackage_ID;
-                }
-            }
-
-
+           
         }
        
         private void LoadFinish()
@@ -186,8 +129,8 @@ namespace BarcodeDemo
                     join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
                     let EmpUserName = t2.FullName
                     let ProductLabelName = t1.Name
-                    where t1.QRCodeProductStatus_ID >= 3
-                    select new
+                    where t1.QRCodeProductStatus_ID >= 3 && t1.Factory_ID == ApiHelper.UserInfo.Factory_ID
+                             select new
                     {
                         t1.QRCodePackage_ID,
                         EmpUserName,
@@ -238,64 +181,6 @@ namespace BarcodeDemo
                 gridControl3.DataSource = outQuery;
                 
             }
-            else
-            {
-                var query = (from t1 in db.QRCodePackages
-                             join t2 in db.App_User on t1.AssignEmp equals t2.App_User_ID
-                             let EmpUserName = t2.FullName
-                             let ProductLabelName = t1.Name
-                             where t1.QRCodeProductStatus_ID >= 3 && t1.AssignEmp == ApiHelper.UserInfo.LoginID
-                             select new
-                             {
-                                 t1.QRCodePackage_ID,
-                                 EmpUserName,
-                                 t1.Batch_ID,
-                                 t1.ProductLabel_ID,
-                                 t1.ProductName,
-                                 t1.SerialNumberStartExpected,
-                                 t1.SerialNumberEndExpected,
-                                 t1.ManufactureDate,
-                                 t1.ManufactureShift,
-                                 t1.QRQueue,
-                                 ProductLabelName,
-                                 t1.ExpectedDate,
-                                 t1.QRCodeProductStatus_ID,
-                                 t1.SerialNumberTextExpected,
-                                 t1.PalletNum
-                             }).OrderBy(i => i.QRQueue).ToList();
-
-                var sumQuery = (from t1 in db.QRCodes
-                                group t1 by (t1.QRCodePackage_ID)
-                    into g
-                                select new
-                                {
-                                    QRCodePackage_ID = g.Key,
-                                    TotalTemp = g.Count()
-                                }).ToList();
-                var outQuery = (from t1 in query
-                                join t2 in sumQuery on t1.QRCodePackage_ID equals t2.QRCodePackage_ID
-                                select new
-                                {
-                                    t1.QRCodePackage_ID,
-                                    t1.EmpUserName,
-                                    t1.Batch_ID,
-                                    t1.ProductLabel_ID,
-                                    t1.ProductName,
-                                    t1.SerialNumberStartExpected,
-                                    t1.SerialNumberEndExpected,
-                                    t1.ManufactureDate,
-                                    t1.ManufactureShift,
-                                    t1.QRQueue,
-                                    t1.ProductLabelName,
-                                    t2.TotalTemp,
-                                    t1.ExpectedDate,
-                                    t1.SerialNumberTextExpected,
-                                    t1.PalletNum,
-                                    IsCheck = (t1.QRCodeProductStatus_ID != 3)
-
-                                }).OrderBy(i => i.QRQueue).ToList();
-                gridControl3.DataSource = outQuery;
-            }
 
         }
         private void LoadCountTem()
@@ -307,7 +192,7 @@ namespace BarcodeDemo
                     p.QRCodeProductStatus_ID == 2 && p.QRCodePackage_ID == SelPack);
                 var totalTemp =
                     db.QRCodePackages.FirstOrDefault(
-                        p => p.QRCodeProductStatus_ID == 2 && p.QRCodePackage_ID == SelPack);
+                        p => p.QRCodeProductStatus_ID == 2 && p.QRCodePackage_ID == SelPack && p.Factory_ID == ApiHelper.UserInfo.Factory_ID);
                 if (Pac != null && totalTemp != null)
                 {
                     var PacNum = Pac.QRCodePackage_ID;
@@ -316,8 +201,8 @@ namespace BarcodeDemo
                     //lblTemp.Text = "Số lượng tem đã hoàn thành là: " + number.ToString();//+ " / " + totalNum.ToString();
                 }
 
-                var waiting = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 1);
-                var finish = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 3);
+                var waiting = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 1 && p.Factory_ID == ApiHelper.UserInfo.Factory_ID);
+                var finish = db.QRCodePackages.Count(p => p.QRCodeProductStatus_ID == 3 && p.Factory_ID == ApiHelper.UserInfo.Factory_ID);
                 lblWaiting.Text = "Danh sách lô mã đang chờ : " + waiting.ToString();
                 lblFinish.Text = "Danh sách lô mã đã kích hoạt xong : " + finish.ToString();
             }
@@ -595,10 +480,10 @@ namespace BarcodeDemo
             {
                 SentServer sv = new SentServer();
                 sv.Device_ID = Guid.NewGuid().ToString();
-                sv.QRCodePackageType_ID = "1";
+                sv.QRCodePackageType_ID = lst.QRCodePackageType_ID.ToString();
                 sv.Product_ID = lst.Product_ID.ToString();
                 sv.Batch_ID = lst.Batch_ID.ToString();
-                sv.Factory_ID = "2";
+                sv.Factory_ID = lst.Factory_ID.ToString();
                 sv.ProductLabel_ID = null;
                 sv.Name = lst.ProductName + "_" + lst.QRCodeNumber;
                 sv.Description = "Lo ma duoc tao bang phan mem kich hoat tem he thong!";
@@ -781,17 +666,17 @@ namespace BarcodeDemo
         {
             using (var db = new productionmanager_plcEntities())
             {
-                var count = db.QRCodePackages.Count(p => p.AssignEmp == ApiHelper.UserInfo.LoginID && p.QRCodePackage_ID == 2);
+                int LotSeq = Convert.ToInt32(SelectedPackage);
+                QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
+                var count = db.QRCodePackages.Count(p => p.AssignEmp == LotCode.AssignEmp && p.QRCodeProductStatus_ID == 2);
                 if (count > 0)
                 {
-                    MessageBox.Show("Người dùng: " + ApiHelper.UserInfo.FullName + "đã có lô mã đang kích hoạt");
+                    MessageBox.Show("Người dùng đã có lô mã đang kích hoạt");
                     return;
                 }
 
                 try
                 {
-                    int LotSeq = Convert.ToInt32(SelectedPackage);
-                    QRCodePackage LotCode = db.QRCodePackages.SingleOrDefault(p => p.QRCodePackage_ID == LotSeq);
                     if (LotCode != null) LotCode.QRCodeProductStatus_ID = 2;
                     db.SaveChanges();
                     MessageBox.Show("Kích hoạt lô mã thành công");

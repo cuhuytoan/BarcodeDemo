@@ -38,6 +38,9 @@
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.label12 = new System.Windows.Forms.Label();
+            this.rdPrivate = new System.Windows.Forms.RadioButton();
+            this.rdPublic = new System.Windows.Forms.RadioButton();
             this.txtPallet = new DevExpress.XtraEditors.TextEdit();
             this.label11 = new System.Windows.Forms.Label();
             this.txtTotalTem = new DevExpress.XtraEditors.TextEdit();
@@ -97,6 +100,7 @@
             // 
             this.barAndDockingController1.AppearancesRibbon.FormCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barAndDockingController1.AppearancesRibbon.FormCaption.Options.UseFont = true;
+            this.barAndDockingController1.PropertiesBar.AllowLinkLighting = false;
             this.barAndDockingController1.PropertiesDocking.ViewStyle = DevExpress.XtraBars.Docking2010.Views.DockingViewStyle.Default;
             // 
             // btnNew
@@ -136,6 +140,9 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.label12);
+            this.panelControl1.Controls.Add(this.rdPrivate);
+            this.panelControl1.Controls.Add(this.rdPublic);
             this.panelControl1.Controls.Add(this.txtPallet);
             this.panelControl1.Controls.Add(this.label11);
             this.panelControl1.Controls.Add(this.txtTotalTem);
@@ -163,8 +170,39 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 32);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(492, 476);
+            this.panelControl1.Size = new System.Drawing.Size(492, 506);
             this.panelControl1.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(23, 416);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "Loại mã";
+            // 
+            // rdPrivate
+            // 
+            this.rdPrivate.AutoSize = true;
+            this.rdPrivate.Location = new System.Drawing.Point(323, 416);
+            this.rdPrivate.Name = "rdPrivate";
+            this.rdPrivate.Size = new System.Drawing.Size(81, 17);
+            this.rdPrivate.TabIndex = 35;
+            this.rdPrivate.Text = "Mã bảo mật";
+            this.rdPrivate.UseVisualStyleBackColor = true;
+            // 
+            // rdPublic
+            // 
+            this.rdPublic.AutoSize = true;
+            this.rdPublic.Checked = true;
+            this.rdPublic.Location = new System.Drawing.Point(205, 416);
+            this.rdPublic.Name = "rdPublic";
+            this.rdPublic.Size = new System.Drawing.Size(87, 17);
+            this.rdPublic.TabIndex = 34;
+            this.rdPublic.TabStop = true;
+            this.rdPublic.Text = "Mã công khai";
+            this.rdPublic.UseVisualStyleBackColor = true;
             // 
             // txtPallet
             // 
@@ -315,7 +353,7 @@
             // btnNewM
             // 
             this.btnNewM.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNewM.ImageOptions.Image")));
-            this.btnNewM.Location = new System.Drawing.Point(266, 420);
+            this.btnNewM.Location = new System.Drawing.Point(273, 450);
             this.btnNewM.Name = "btnNewM";
             this.btnNewM.Size = new System.Drawing.Size(114, 44);
             this.btnNewM.TabIndex = 11;
@@ -325,7 +363,7 @@
             // btnSaveM
             // 
             this.btnSaveM.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveM.ImageOptions.Image")));
-            this.btnSaveM.Location = new System.Drawing.Point(114, 420);
+            this.btnSaveM.Location = new System.Drawing.Point(100, 450);
             this.btnSaveM.Name = "btnSaveM";
             this.btnSaveM.Size = new System.Drawing.Size(114, 44);
             this.btnSaveM.TabIndex = 10;
@@ -407,7 +445,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 508);
+            this.ClientSize = new System.Drawing.Size(492, 538);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.ribbonControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -472,5 +510,8 @@
         private DevExpress.XtraEditors.TextEdit txtPallet;
         private System.Windows.Forms.Label label11;
         private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1;
+        private System.Windows.Forms.RadioButton rdPrivate;
+        private System.Windows.Forms.RadioButton rdPublic;
+        private System.Windows.Forms.Label label12;
     }
 }

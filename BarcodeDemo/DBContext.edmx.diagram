@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a48f459e6a45412e9c182ab6e7b31087" Name="Diagram1">
         <EntityTypeShape EntityType="productionmanager_plcModel.App_Role" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="productionmanager_plcModel.App_User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="productionmanager_plcModel.App_UserInRole" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="productionmanager_plcModel.QRCodePackage" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="productionmanager_plcModel.QRCodeProductStatu" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="productionmanager_plcModel.QRCode" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="productionmanager_plcModel.App_User" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

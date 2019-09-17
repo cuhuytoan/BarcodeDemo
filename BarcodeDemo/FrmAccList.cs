@@ -25,7 +25,7 @@ namespace BarcodeDemo
         private void Inquiry()
         {
             db= new productionmanager_plcEntities();
-            gridControl1.DataSource = db.App_User.ToList().OrderBy(i =>i.FullName);
+            gridControl1.DataSource = db.App_User.Where(p=>p.Factory_ID == ApiHelper.UserInfo.Factory_ID).OrderBy(i =>i.FullName).ToList();
         }
 
         private void btnInquiry_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

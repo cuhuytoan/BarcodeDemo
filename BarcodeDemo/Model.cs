@@ -83,4 +83,11 @@ namespace BarcodeDemo
         public int? QRCodePackage_ID { get; set; }
         public string LstQrCode { get; set; }
     }
+
+    public class UserLogin
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Factory_ID { get; set; }
+    }
 }
