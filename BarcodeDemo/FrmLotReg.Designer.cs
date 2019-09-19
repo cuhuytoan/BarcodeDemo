@@ -66,6 +66,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::BarcodeDemo.WaitForm1), true, true);
+            this.txtLotName = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -79,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtLot.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateManu.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateManu.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLotName.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -140,6 +142,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.txtLotName);
             this.panelControl1.Controls.Add(this.label12);
             this.panelControl1.Controls.Add(this.rdPrivate);
             this.panelControl1.Controls.Add(this.rdPublic);
@@ -335,11 +338,12 @@
             // txtLot
             // 
             this.txtLot.Enabled = false;
-            this.txtLot.Location = new System.Drawing.Point(161, 21);
+            this.txtLot.Location = new System.Drawing.Point(405, 21);
             this.txtLot.MenuManager = this.ribbonControl1;
             this.txtLot.Name = "txtLot";
-            this.txtLot.Size = new System.Drawing.Size(309, 20);
+            this.txtLot.Size = new System.Drawing.Size(65, 20);
             this.txtLot.TabIndex = 1;
+            this.txtLot.Visible = false;
             // 
             // label7
             // 
@@ -441,6 +445,15 @@
             // 
             this.splashScreenManager1.ClosingDelay = 500;
             // 
+            // txtLotName
+            // 
+            this.txtLotName.Enabled = false;
+            this.txtLotName.Location = new System.Drawing.Point(162, 21);
+            this.txtLotName.MenuManager = this.ribbonControl1;
+            this.txtLotName.Name = "txtLotName";
+            this.txtLotName.Size = new System.Drawing.Size(309, 20);
+            this.txtLotName.TabIndex = 37;
+            // 
             // FrmLotReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +483,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtLot.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateManu.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateManu.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLotName.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -513,5 +527,6 @@
         private System.Windows.Forms.RadioButton rdPrivate;
         private System.Windows.Forms.RadioButton rdPublic;
         private System.Windows.Forms.Label label12;
+        private DevExpress.XtraEditors.TextEdit txtLotName;
     }
 }

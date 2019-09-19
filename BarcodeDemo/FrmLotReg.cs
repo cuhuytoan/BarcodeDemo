@@ -82,6 +82,7 @@ namespace BarcodeDemo
         private void New()
         {
             txtLot.Text = "";
+            txtLotName.Text = "";
             cboProductNm.Text = "";
             cboProductLabel.Text = "";
             //txtSerialFr.Text = "";
@@ -176,7 +177,15 @@ namespace BarcodeDemo
                     rdPrivate.Checked = true;
                     rdPublic.Checked = false;
                 }
-                //gridControl1.DataSource = query.OrderByDescending(i => i.QRCodePackage_ID);
+
+                if (ApiHelper.UserInfo.Factory_ID == 2)
+                {
+                    txtLotName.Text = "TL" + DateTime.Now.Year.ToString().Substring(2, 2) + query.QRCodePackage_ID;
+                }
+                else if(ApiHelper.UserInfo.Factory_ID == 1)
+                {
+                    txtLotName.Text = "NB" + DateTime.Now.Year.ToString().Substring(2, 2) + query.QRCodePackage_ID;
+                }
                 txtLot.DataBindings.Add(new Binding("Text", query, "QRCodePackage_ID"));
                 cboProductNm.DataBindings.Add(new Binding("Text", query, "ProductName"));
                 txtShiftNo.DataBindings.Add(new Binding("Text", query, "ManufactureShift"));
@@ -203,7 +212,7 @@ namespace BarcodeDemo
 
 
             //Load Emp
-            cboEmp.DataSource = db.App_User.Select(i => new { i.App_User_ID, i.FullName }).ToList();
+            cboEmp.DataSource = db.App_User.Where(p=>p.Factory_ID == ApiHelper.UserInfo.Factory_ID).Select(i => new { i.App_User_ID, i.FullName }).ToList();
             cboEmp.ValueMember = "App_User_ID";
             cboEmp.DisplayMember = "FullName";
 

@@ -493,7 +493,7 @@ namespace BarcodeDemo
                 sv.SerialNumberText = pSerialNumberText.Remove(pSerialNumberText.Length-1,1);
                 sv.ManufactureShift = lst.ManufactureShift;
                 sv.ManufactureDate = lst.ManufactureDate.ToString();
-                sv.UserName = "plc.sx1";
+                sv.UserName = ApiHelper.UserInfo.UserName;
                 sv.AgentVersion = "2.0";
                 json = JsonConvert.SerializeObject(sv);
             }
