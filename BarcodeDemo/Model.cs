@@ -90,4 +90,15 @@ namespace BarcodeDemo
         public string UserName { get; set; }
         public string Factory_ID { get; set; }
     }
+
+    public class PrintData
+    {
+        public string FactoryName { get; set; }
+        public string QRCode { get; set; }
+        public string ProductName { get; set; }
+        public string Baobi { get; set; }
+        public string PalletNum { get; set; }
+        public string CreateDate { get; set; }
+        public string PackageName { get; set; }
+    }
 }

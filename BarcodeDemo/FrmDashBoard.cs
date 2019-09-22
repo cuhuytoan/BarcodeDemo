@@ -5,15 +5,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
+using BarcodeDemo.Report;
 using DevExpress.DirectX;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.XtraReports.UI;
+using DevExpress.XtraRichEdit.Model;
 
 namespace BarcodeDemo
 {
@@ -967,6 +971,93 @@ namespace BarcodeDemo
             {
                 e.Appearance.BackColor = Color.Red;
             }
+        }
+
+        private void btnPrintPallet_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            using (var db = new productionmanager_plcEntities())
+            {
+                
+                var printCurrent = db.QRCodePackages.FirstOrDefault(p =>
+                    p.QRCodeProductStatus_ID == 2 && p.AssignEmp == ApiHelper.UserInfo.LoginID);
+                if (printCurrent != null)
+                {
+                    if (printCurrent.PalletNum == null || printCurrent.PalletNum <= 0)
+                    {
+                        MessageBox.Show("Vui lòng nhập số lượngPallet khi tạo Lô");
+                        return;
+                    }
+                    var totalTemp = ApiHelper.GetListstrSerial(printCurrent.SerialNumberTextExpected).Split(',').Count();
+                    var param = totalTemp / printCurrent.PalletNum;
+                    var lstQRCode = db.QRCodes.Where(p => p.QRCodePackage_ID == printCurrent.QRCodePackage_ID).ToList();
+                    if (lstQRCode != null )
+                    {
+                        if (lstQRCode.Count == 0)
+                        {
+                            MessageBox.Show("Không tồn tại QR code đã scan");
+                            return;
+                        }
+                        
+                        
+                    }
+
+                    List<PrintData> printData = new List<PrintData>();
+                    if (param != null && lstQRCode.Count > 0)
+                    {
+                        CultureInfo provider = CultureInfo.InvariantCulture;
+                        for (int i = 0; i < lstQRCode.Count; i = (int)(i + param))
+                        {
+                            int palletNum = 1;
+                            PrintData pData = new PrintData();
+                            pData.FactoryName = ApiHelper.UserInfo.Factory_ID == 2
+                                ? "NHÀ MÁY THƯỢNG LÝ"
+                                : "NHÀ MÁY NHÀ BÈ";
+                            pData.Baobi = printCurrent.Name.ToUpper();
+                            pData.ProductName = printCurrent.ProductName.ToUpper();
+                            pData.PalletNum = palletNum.ToString();
+                            pData.PackageName = ApiHelper.UserInfo.Factory_ID == 2
+                                ? "TL" + DateTime.Now.Year.ToString().Substring(2, 2) +
+                                  printCurrent.QRCodePackage_ID.ToString()
+                                : "NB" + DateTime.Now.Year.ToString().Substring(2, 2) +
+                                  printCurrent.QRCodePackage_ID.ToString();
+                            //pData.CreateDate = DateTime.ParseExact(printCurrent.CreateDate.ToString(), "yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture).ToString("dd/MM/yyyy");
+                            pData.CreateDate = Convert.ToDateTime(printCurrent.CreateDate.ToString()).ToString("dd/MM/yyyy");
+
+                            int k = 0;
+                            for (int j = i; j < lstQRCode.Count; j++)
+                            {
+                                
+                                if (k >= param) break;
+                                pData.QRCode = pData.QRCode +"-" + lstQRCode[j].SerialNumber;
+                                k = k + 1;
+                            }
+
+                            pData.QRCode = pData.QRCode.Remove(0, 1);
+                            printData.Add(pData);
+                            palletNum = palletNum +1;
+
+                        }
+                    }
+
+                       
+
+                    //var str = String.Join("-", lstQRCode.Select(p => p.SerialNumber));
+                    //List<PrintData> printData = new List<PrintData>();
+                    //PrintData pData = new PrintData();
+                    //pData.FactoryName = ApiHelper.UserInfo.Factory_ID == 2 ? "NHÀ MÁY THƯỢNG LÝ" : "NHÀ MÁY NHÀ BÈ";
+                    //pData.Baobi = printCurrent.Name.ToUpper();
+                    //pData.ProductName = printCurrent.ProductName.ToUpper();
+                    //pData.QRCode = str.ToUpper();
+                    //printData.Add(pData);
+                    Report.printPallet rptPallet = new printPallet();
+                    rptPallet.DataSource = printData;
+                    ReportPrintTool tool = new ReportPrintTool(rptPallet);
+                    tool.ShowPreview();
+                  
+
+                }
+            }
+                
         }
     }
 }
